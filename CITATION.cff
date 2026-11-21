@@ -1,0 +1,146 @@
+cff-version: 1.2.0
+message: Please cite the preprint and this replay supplement.
+title: 'Replay supplement for Certified ceilings for the Migdal-Eliashberg linear pairing onset'
+authors:
+  - family-names: Rens
+    given-names: Davis
+    affiliation: SuperMatics Inc.
+    orcid: 'https://orcid.org/0000-0001-5839-5197'
+doi: 10.5281/zenodo.24411779
+version: 1.0.0
+date-released: 2026-11-20
+license: Apache-2.0
+references:
+  - type: article
+    status: preprint
+    title: 'Certified ceilings for the Migdal-Eliashberg linear pairing onset: one inequality chain from the glue moment to observable ratios'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24411775
+    license: CC-BY-4.0
+  - type: article
+    status: preprint
+    title: 'Sharp Eliashberg pairing bounds for an energy-dependent density of states'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24364879
+  - type: article
+    status: preprint
+    title: 'Certified Eliashberg gamma-model linear-instability constants: replay certificate'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24366341
+  - type: article
+    status: preprint
+    title: 'Suppression of electronic pair order for slow lattice phonons'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24366508
+  - type: article
+    status: preprint
+    title: 'What a glue moment bounds in linear Eliashberg theory'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24372930
+  - type: article
+    status: preprint
+    title: 'A √(377/250)/(2π) moment-norm ceiling for causal multichannel Eliashberg branches'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24374032
+  - type: article
+    status: preprint
+    title: 'Moment-norm ceilings √(41/30)/(2π) and √(45/32)/(2π) for multichannel Eliashberg branches'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24380829
+  - type: article
+    status: preprint
+    title: 'Limits of defect-insertion bounds for slow-phonon pair order in the Holstein model'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24385569
+  - type: article
+    status: preprint
+    title: 'Rigorous ceilings on phonon-mediated pairing: a map from Eliashberg theory to the Holstein model'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24406996
+  - type: article
+    status: preprint
+    title: 'The Coulomb pseudopotential and the optimality of the Einstein spectrum for the linear Eliashberg ceiling'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24409773
+  - type: article
+    status: preprint
+    title: 'Vertex corrections and the Migdal-Eliashberg ceiling: a geometric dichotomy between nested and curved Fermi surfaces'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24410274
+    version: '2'
+  - type: article
+    status: preprint
+    title: 'Centered multichannel Eliashberg branches: a sqrt(341/250)/(2 pi) moment-norm ceiling'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    doi: 10.5281/zenodo.24410276
+    version: '2'
+  - type: article
+    status: preprint
+    title: 'Sharp bounds on the Eliashberg critical temperature'
+    authors:
+      - family-names: Rens
+        given-names: Davis
+        affiliation: SuperMatics Inc.
+        orcid: 'https://orcid.org/0000-0001-5839-5197'
+    year: 2026
+    url: 'https://arxiv.org/abs/2611.20496'

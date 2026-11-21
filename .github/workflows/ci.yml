@@ -1,0 +1,117 @@
+name: replay-and-paper
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source manifest
+        run: |
+          set -euo pipefail
+          sha256sum -c MANIFEST.sha256
+          (cd replay && sha256sum -c MANIFEST.sha256)
+      - name: Manifest covers every tracked file
+        run: |
+          set -euo pipefail
+          git ls-files | grep -vx 'MANIFEST.sha256' | grep -vx 'replay/MANIFEST.sha256' | sort > tracked.txt
+          sed -E 's/^[0-9a-f]{64}  //' MANIFEST.sha256 | grep -vx 'replay/MANIFEST.sha256' | sort > manifested.txt
+          diff -u manifested.txt tracked.txt
+      - name: No review-cycle file in the tree
+        run: |
+          set -euo pipefail
+          if git ls-files | grep -niE '(^|/)reviews?/|review|fix[0-9]*\.|scoping|cover-letter|backup|\.v[0-9]+\.'; then exit 1; fi
+      - name: Install the replay dependencies
+        run: python -m pip install --disable-pip-version-check numpy==2.5.3 scipy==1.18.1
+      - name: Every supplement check from a throwaway copy
+        run: |
+          set -euo pipefail
+          (cd replay && python -B run_all.py | tee run_all.out)
+          grep -qF '4 mutants rejected' run_all.out
+          grep -qF '4 rows reproduce the manuscript table exactly' run_all.out
+          grep -qF 'all 38 decimal endpoints of clambda_table.csv appear in the replay output' run_all.out
+          grep -qF 'ALL 5 CHECKS PASSED' run_all.out
+      - name: Tail negative controls must reject
+        run: |
+          set -euo pipefail
+          for mode in schur-no-factor-two cubic-no-near-scan; do
+            set +e
+            (cd replay/C-LAMBDA && python -B tail_mutants.py "$mode") > mut.out 2>&1
+            rc=$?
+            set -e
+            cat mut.out
+            test "$rc" -eq 1 || { echo "mutant $mode exited $rc, expected 1"; exit 1; }
+            grep -qE 'exceeds its claimed upper bound|lacks the claimed positive lower margin|negative even before' mut.out \
+              || { echo "mutant $mode exited 1 without a named rejection"; exit 1; }
+          done
+      - name: Public prose safeguards
+        run: |
+          set -euo pipefail
+          if grep -nE '—|---|D:/|C:/|/scratch/|ceiling-20261118|JOURNAL-CEILING|UNIV-GLUE|ANISO-SHARP|reserved DOI' paper/main.tex; then exit 1; fi
+          if grep -nE '—|D:/|C:/|/scratch/|ceiling-20261118|JOURNAL-CEILING|UNIV-GLUE|ANISO-SHARP|reserved DOI' \
+              README.md CITATION.cff replay/README.md replay/RECORDS.md replay/materials/LitConventional.md replay/materials/LitHydrides.md; then exit 1; fi
+          if grep -nE '—|D:/|C:/|/scratch/|ceiling-20261118|JOURNAL-CEILING|\blane\b' replay/C-LAMBDA/clambda_table.csv replay/materials/moments.json; then exit 1; fi
+          test "$(grep -cF '10.5281/zenodo.24411775' paper/main.tex)" -eq 1
+          test "$(grep -cF '10.5281/zenodo.24411779' paper/main.tex)" -eq 1
+          grep -qF 'This preprint has not been peer reviewed.' README.md
+          grep -qF 'AI agents generated proofs, certificates, code, and manuscript drafts and edits under D. Rens' README.md
+          grep -qF 'Separate AI agents performed the independent reviews of the cited records.' README.md
+          grep -qF 'whether a model at finite moment attains it is open' README.md
+          grep -qF 'no material is claimed to be a superconductor' README.md
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SOURCE_DATE_EPOCH: "1795132800"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Tectonic and poppler
+        run: |
+          set -euo pipefail
+          curl -fsSL https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz | sudo tar -xz -C /usr/local/bin
+          test "$(tectonic --version)" = "Tectonic 0.17.0"
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Build the manuscript
+        working-directory: paper
+        run: |
+          set -euo pipefail
+          tectonic --keep-logs main.tex
+          if grep -nE 'Overfull|Reference .*undefined|Citation .*undefined|There were undefined' main.log; then exit 1; fi
+          test "$(grep -c 'Underfull' main.log)" -eq 1
+          test -s main.pdf
+          pdfinfo main.pdf | grep -qE '^Pages:[[:space:]]+16$'
+          pdfinfo -url main.pdf > urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24411775' urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24411779' urls.txt
+          grep -qF 'https://github.com/SuperMatics-Inc/migdal-eliashberg-pairing-onset-ceilings' urls.txt
+          pdftotext main.pdf main.txt
+          if grep -nE '—|D:/|C:/|/scratch/|ceiling-20261118|JOURNAL-CEILING|\blane\b|PAPERDOI|SUPPLEMENTDOI' main.txt; then exit 1; fi
+          flat="$(tr -s '[:space:]' ' ' < main.txt)"
+          for marker in 'This preprint has not been peer reviewed.' 'Use of AI assistance' 'Davis Rens' 'SuperMatics Inc.' \
+                        '0000-0001-5839-5197' '0.1857550244' '0.1858777115' '0.18272624777232952' \
+                        '9/6820' '3189/10000' '6811/5000' '341/250' \
+                        '10.5281/zenodo.24411775' '10.5281/zenodo.24411779'; do
+            case "$flat" in
+              *"$marker"*) ;;
+              *) echo "missing from the PDF text: $marker"; exit 1 ;;
+            esac
+          done
+          sha256sum main.pdf
+          md5sum main.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: migdal-eliashberg-pairing-onset-ceilings-paper
+          path: |
+            paper/main.pdf
+            paper/main.log
+            paper/main.tex
+            paper/refs.bib
+            paper/urls.txt
+            paper/main.txt
+          if-no-files-found: error

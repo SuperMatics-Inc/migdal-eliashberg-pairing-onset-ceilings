@@ -1,0 +1,1181 @@
+% Target journal: Physical Review Research. The journal option prresearch exists only in
+% REVTeX 4.2f and later; this manuscript is built with 4.2e, which has no such option, and
+% APS applies the journal style at submission and production. The two-column layout of
+% Physical Review Research is therefore set here by the class default plus the options below.
+\documentclass[aps,10pt,superscriptaddress,floatfix,amsmath,amssymb,nofootinbib]{revtex4-2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{url}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\usepackage{bm}
+
+\newcommand{\kb}{k_{\mathrm B}}
+\newcommand{\Tlin}{T_{\mathrm{lin}}}
+\newcommand{\Cinf}{C_\infty}
+\newcommand{\Cthree}{C_{3}}
+\newcommand{\Cstar}{C_{*}}
+\newcommand{\Ccent}{C_{\mathrm{cent}}}
+\newcommand{\Ccaus}{C_{\mathrm{caus}}}
+\newcommand{\Ctwoone}{C_{21}}
+\newcommand{\Cone}{C_{1}}
+\newcommand{\Upre}{U}
+\newcommand{\dstar}{d_{*}}
+\newcommand{\drep}{d_{\mathrm{rep}}}
+\newcommand{\mm}{\mathfrak m}
+\newcommand{\Mmat}{\mathcal M}
+\newcommand{\sS}{\mathcal S}
+\newcommand{\Cgeom}{C_{\mathrm{geom}}}
+\newcommand{\CLC}{C_{\mathrm{LC}}}
+\newcommand{\Tceil}{T_{\mathrm{ceil}}}
+\newcommand{\muS}{\mu^{*}}
+\newcommand{\PROVED}{\textsc{proved}}
+\newcommand{\CERT}{\textsc{certified}}
+\newcommand{\NUM}{\textsc{numerical}}
+\newcommand{\OPEN}{\textsc{open}}
+\newcommand{\KNOWN}{\textsc{known}}
+\newcommand{\DOI}[1]{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+\newcommand*{\PAPERDOI}{10.5281/zenodo.24411775}
+\newcommand*{\SUPPLEMENTDOI}{10.5281/zenodo.24411779}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\title{Certified ceilings for the Migdal--Eliashberg linear pairing onset:\\
+one inequality chain from the glue moment to observable ratios}
+
+\author{Davis Rens\homepage{ORCID 0000-0001-5839-5197}}
+\affiliation{SuperMatics Inc.\\\href{https://orcid.org/0000-0001-5839-5197}{ORCID 0000-0001-5839-5197}}
+
+\date{20 November 2026}
+
+\begin{abstract}
+We consolidate, in one notation and with the reduction proved in full, a chain of
+rigorous upper bounds on the linear pairing onset temperature $\Tlin$ of a reciprocal
+multichannel Migdal--Eliashberg model with channel-dependent bounded densities of states
+and a common retarded glue. The bounds read $\kb\Tlin<C\sqrt{\rho}$, where $\rho$ is the
+norm of the glue moment matrix, and they come in two strengths: a supremum bound
+$C$ over the whole model class, and a strict per-model bound at a larger constant
+$C'$ with a rational slack. For the centered class of normal branches the sharpest
+supremum constant is $\Cthree=\sqrt{6811/5000}/(2\pi)=0.1857550244$ and the sharpest
+strict constant is $\Cstar=\sqrt{341/250}/(2\pi)=0.1858777115$ with slack $9/6820$. For
+the wider causal class defined by Harnack inequalities alone the sharpest strict constant
+is $\Ccaus=\sqrt{45/32}/(2\pi)=0.1887345454$. The scalar Einstein limit gives the exact
+constant $\Cinf=0.18272624777232952$, whose certified enclosure has relative width below
+$6\times10^{-17}$; in a soft-glue limit with equitably coupled channels the coupled ceiling
+is attained at $\Cinf$, and no method of the frozen-sequence type can produce a constant
+below $0.185411$, so the coupled constants lie in an interval of certified width above the
+exact value. A pairing-only Coulomb repulsion, at any pseudopotential, leaves the ceiling
+intact while it destroys the optimality of the Einstein spectrum, and the two statements
+are proved separately. The reduction from one edge inequality to the ceiling is proved
+here in full. The finite part of every ceiling is an exact rational inequality verified
+twice by independent programs; its statement and its record are reproduced. We then place
+the ceilings against the literature: the Allen--Dynes strong-coupling coefficient $0.15$ is
+$17.9\%$ below $\Cinf$, the Moussa--Cohen fixed-moment constant $0.183$ is $0.15\%$ above it, and
+the coupling-resolved ceiling $C(\lambda)$ rises from $0.11462$ at $\lambda=1$ to $\Cinf$.
+Measured transition temperatures of Pb, Nb, $\mathrm{MgB_2}$ and $\mathrm{LaH_{10}}$ sit at
+$0.43$, $0.23$, $0.34$ and $0.60$ of the scalar ceiling, a ratio that is numerical
+throughout. Retaining the first crossed skeleton, the answer is a dichotomy: on nested flat
+sheets the crossed correction does not vanish in the adiabatic limit, on curved Fermi
+surfaces it vanishes linearly in the adiabatic ratio up to a logarithm cubed, a fourth
+power in two dimensions, and the
+all-coupling all-momentum statement remains open. A limits section collects every object
+that these bounds do not describe. No statement here identifies $\Tlin$ with the transition
+temperature of a material, and no material is claimed to be a superconductor by these
+bounds.
+This preprint has not been peer reviewed.
+
+\end{abstract}
+
+\maketitle
+
+\section{Introduction and summary}
+
+The Migdal--Eliashberg equations are the working theory of phonon-mediated
+superconductivity, and the empirical rule that a transition temperature follows the
+electron-phonon coupling has been quantified by fits for sixty years
+\cite{mcmillan,allendynes,moussa}. Fits are not bounds. The question addressed here is
+the one a bound answers: how large can the pairing onset of the linearized theory be, as
+a function of quantities that a material calculation provides, uniformly over a class of
+spectra and of densities of states?
+
+Two numbers measure a coupling. The first is $\lambda$, the mass of the glue. The second
+is $M=\lambda\langle\omega^{2}\rangle$, the second moment of the Eliashberg function
+weighted by the coupling, equivalently $\lambda$ times the mean square phonon energy. The
+bounds in this paper are formulated with the matrix of glue moments of a multichannel
+model and with its operator norm $\rho$; in the single-channel case $\rho=M$, so every
+constant below can be read as a coefficient multiplying $\sqrt{M}$, and then converted to
+kelvin by the mean phonon energy.
+
+The physical content is a ceiling of order $0.18\sqrt{\lambda}\,\omega$ with a certified
+coefficient. Four consequences follow, and each is stated with its own status label in
+what follows. First, the coefficient is not a fit: it is the exact value of a
+strong-coupling limit, enclosed to seventeen decimal places, and the Allen--Dynes
+strong-coupling coefficient $0.15$ lies $17.9\%$ below it, so the fit is not merely unproved but
+strictly conservative in that regime. Second, for a single channel the ceiling saturates
+as $\lambda\to\infty$, which is the statement that strong coupling alone cannot push the
+linear onset above a fixed multiple of the phonon energy scale. Third, in the multichannel
+problem the ceiling depends on the glue matrix through its norm and not through its
+eigenvalues individually, so a bipartite glue whose moment matrix has a negative
+eigenvalue is covered with the same constant. Fourth, the coupled constant is pinned from
+below as well: in a soft-glue limit with equitably coupled channels the sharp scalar value
+$\Cinf$ is attained, so the width of the interval that contains the coupled supremum is
+the width between $\Cinf$ and the certified constant, and not a matter of opinion about
+which channel structure is optimal.
+
+\subsection{What this paper contains}
+
+This paper is a consolidated record. Its statements are those of eleven released and
+independently reviewed records
+\cite{finiteband,gamma,univglue,optimum,finiteenergy,anisosharp,msvertex,cutoff,slowphonon,limits,capstone},
+seven of which form the ceiling chain of Secs.~\ref{sec:model} to~\ref{sec:ceilings}. The
+paper makes four contributions of its own, all of them organizational or expository:
+
+\begin{enumerate}
+\item[\rm(i)] It states the model, the two classes of normal branches and the onset
+temperature once, in one notation, in Sec.~\ref{sec:model}.
+\item[\rm(ii)] It proves the reduction from a single edge inequality to the ceiling in full
+(Lemma~\ref{lem:reserve} and Corollary~\ref{cor:strict}). The published records prove it
+too; reproducing it here makes the dependence of the final constant on exactly one
+finite statement explicit.
+\item[\rm(iii)] It places every constant in one ordered table with the reserve that
+produces it, the exact rational slack it carries, and the certification record behind it
+(Tables~\ref{tab:ceil} and~\ref{tab:reserve}), and it sets the constants against the
+literature and against four sets of measured transition temperatures
+(Secs.~\ref{sec:sharp} to~\ref{sec:lit}).
+\item[\rm(iv)] It records the one place where the coupled problem is closed: the soft-glue
+limit with equitably coupled channels, where the ceiling is attained at $\Cinf$
+(Theorem~\ref{thm:softlimit}). This records a released statement in the notation of the
+general model, and it is the reason the abstract interval $[\Cinf,\Cthree]$ is a statement
+about a limit rather than a guess.
+\end{enumerate}
+
+No new analytic inequality is claimed, and the exact-arithmetic brackets of
+Tables~\ref{tab:clambda} and~\ref{tab:mat} are presented here for the first time, with their
+programs and digitization records in the supplement. Where a statement belongs to an
+earlier record, the record
+is identified by its persistent identifier, and the label attached to the statement is the
+label the record carries after independent review. The labels are: \PROVED{} means a
+human-reviewed analytic argument combined with exact rational arithmetic that an
+independent program reproduces; \CERT{} means the finite exact statement on its own, apart
+from the analysis that applies it; \NUM{} means floating-point evidence without an
+enclosure; \OPEN{} means undecided. Nothing in this paper carries the label \PROVED{} by
+itself except the reduction of Sec.~\ref{sec:reserve}, which is elementary.
+
+\subsection{The result in one line}
+
+For every model of the centered class of Sec.~\ref{sec:model},
+\begin{equation}\label{eq:headline}
+\kb\Tlin\;<\;\Cstar\sqrt{\rho},\qquad
+\Cstar=\frac{\sqrt{341/250}}{2\pi}=0.1858777114719168\ldots,
+\end{equation}
+and any constant $C>\Cthree$ with $\Cthree=\sqrt{6811/5000}/(2\pi)=0.1857550244$ is a
+valid ceiling for every model of the class, whereas $\Cthree$ itself is guaranteed only in
+the non-strict form $\kb\Tlin\le\Cthree\sqrt{\rho}$. That is the difference between the
+strict and the supremum column of Table~\ref{tab:ceil}. The exact scalar constant is $\Cinf=0.18272624777232952$, so the
+coupled constant lies in the interval $[\Cinf,\Cthree]$, of relative width $1.66\%$; the
+lower endpoint is attained in the soft-glue limit of Theorem~\ref{thm:softlimit}, and
+whether a single model at finite moment attains it is open. For the causal class the
+corresponding numbers are $\Ccaus=\sqrt{45/32}/(2\pi)=0.1887345454$ strict, and the
+supremum bound $\sqrt{281/200}/(2\pi)=0.1886506447$, which is $1.6\%$ above $\Cthree$.
+
+\section{Model, class of branches, and onset}\label{sec:model}
+
+The model is the reciprocal multichannel Eliashberg model of
+Refs.~\cite{univglue,optimum,finiteenergy,anisosharp}. We restate it because every
+constant below is a statement about this object and about nothing else.
+
+\subsection{Channels, densities of states and glue}
+
+The channel space is a finite set $X$ with positive height weights $\eta_x$. Channel $x$
+carries a measurable density of states $0\le N_x(\xi)\le\eta_x$ whose peak height is the
+weight of the channel, $N_{\max,x}=\eta_x$, and whose normalized profile
+$\nu_x=N_x/N_{\max,x}$ is even and valued in $[0,1]$. The vertices are energy independent
+and radial, so a channel is a band and not a momentum direction.
+
+The glue is a family of reciprocal nonnegative measures
+$d\mm_{xy}(E)=d\mm_{yx}(E)\ge0$ on energies $E\in(0,\infty)$, with moment matrix
+$\Mmat_{xy}=\int d\mm_{xy}(E)$. The matrix acts on $\ell^{2}(\eta)$ by
+\begin{equation}\label{eq:moment}
+(\Mmat h)_x=\sum_y\eta_y\Mmat_{xy}h_y,\qquad
+\rho=\|\Mmat\|_{\ell^{2}(\eta)}\in(0,\infty).
+\end{equation}
+Entrywise nonnegativity is required and positive semidefiniteness of $\Mmat$ is not: a
+bipartite glue, one that couples two groups of channels without coupling within a group,
+has a moment matrix with a negative eigenvalue, so the relaxation is physical. Each measure
+is supported on positive energies and has a finite moment, and at each tested temperature
+its zero-transfer mass is finite. In a single channel with an Einstein line of energy
+$\Omega$ and coupling $\lambda$ one has $\Mmat=\lambda\Omega^{2}$ and $\rho=\lambda
+\Omega^{2}=M$. For a general spectrum, $\rho\le\lambda\max_x\langle\omega^{2}\rangle_x$,
+with equality when all channels share one spectrum.
+
+\subsection{A positive reflected normal branch}
+
+Set $\tau=\kb T$ and $\omega_n=\pi\tau w_n$ with $w_n=2n+1$. Pairing is tested on a
+positive reflected normal branch, that is, on an actual solution of the matched
+imaginary-axis normal equation. Its normal width at the $n$th reflected frequency, in
+units in which the free width is $w_n$, is
+\begin{equation}\label{eq:width}
+s_{n,x}=w_n+\frac{1}{(2\pi\tau)^{2}}\sum_y\eta_y\int\sum_{m\ge0}p_{nm}(t)\,b_{m,y}\,
+d\mm_{xy}(E)\ \ge\ w_n,
+\end{equation}
+and the pairing weights are the Poisson averages of the profile,
+\begin{equation}\label{eq:weights}
+b_{n,x}=\int_{-\infty}^{\infty}\nu_x(\xi)\,
+\frac{\pi\tau s_{n,x}}{(\pi\tau s_{n,x})^{2}+\xi^{2}}\,\frac{d\xi}{\pi}\in[0,1].
+\end{equation}
+An extra allowed normal mass only increases the width in \eqref{eq:width}, so nothing
+below depends on assuming the minimal normal kernel. The kernel factors are
+\begin{equation}\label{eq:kernel}
+k_j(t)=\frac{1}{t+j^{2}},\quad
+p_{nm}=k_{|n-m|}-k_{n+m+1}\ge0,\quad
+S_{nm}=k_{|n-m|}+k_{n+m+1},\qquad t=\Bigl(\frac{E}{2\pi\tau}\Bigr)^{2},
+\end{equation}
+the factor $(2\pi\tau)^{2}$ having been removed from the physical transfer.
+
+\subsection{Two classes of branches}
+
+The widths \eqref{eq:width} are not free. In the \emph{centered class} the ratio
+$s_{n,x}/w_n$ is nonincreasing and $w_ns_{n,x}$ is nondecreasing in $n$, which gives the
+width cone
+\begin{equation}\label{eq:cone}
+w_m^{-1}\ \le\ \frac{s_{m,x}}{s_{0,x}}\ \le\ w_m,\qquad m\ge1.
+\end{equation}
+The two centered Poisson kernels at heights whose ratio lies in $[w_m^{-1},w_m]$ have a
+pointwise ratio in the same interval, so integrating both the profile and its complement
+in \eqref{eq:weights} gives the four Harnack inequalities
+\begin{equation}\label{eq:harnack}
+0\le b_{m,x}\le1,\qquad
+\frac{b_{0,x}}{w_m}\le b_{m,x}\le w_mb_{0,x},\qquad
+w_mb_{0,x}-(w_m-1)\le b_{m,x}\le\frac{b_{0,x}+w_m-1}{w_m}.
+\end{equation}
+The \emph{causal class} is the wider class in which \eqref{eq:harnack} is retained and
+\eqref{eq:cone} is dropped, the weights being those of a channel-wise causal radial
+propagator. Every centered branch is causal, and the constants for the causal class are
+correspondingly larger. The cone \eqref{eq:cone} was established for the centered class in
+Refs.~\cite{univglue,optimum}, and the Harnack form \eqref{eq:harnack} for the causal class
+in Ref.~\cite{finiteenergy}.
+
+\begin{remark}[What is assumed and what is not]\label{rem:assume}
+At each tested temperature the frequency rows of the normal kernel, including the
+zero-transfer term, are assumed to have a finite bound $R(\tau)$; no bound uniform in
+$\tau$ is needed anywhere. The normal kernel is allowed to exceed the pairing transfer by
+an odd-folded nonnegative excess, and a positive semidefinite static pairing-only
+subtraction is harmless on the matched branch. These relaxations are those of
+Refs.~\cite{optimum,anisosharp} and are used in the reduction of
+Sec.~\ref{sec:reserve} only through the existence of $R(\tau)$.
+\end{remark}
+
+\subsection{The stability form and the onset temperature}
+
+For a finite-support real profile $v_{n,x}$ put $g_{n,x}=\sqrt{w_nb_{n,x}}\,v_{n,x}$.
+After folding the frequency axis the normal-state stability form is
+\begin{equation}\label{eq:form}
+Q(v)=\sum_x\eta_x\|g_x\|^{2}
++\frac{1}{2(2\pi\tau)^{2}}\sum_{x,y}\eta_x\eta_y\int I_{xy}(t)\,d\mm_{xy}(E),
+\end{equation}
+where, with $b_n=b_{n,x}$, $c_m=b_{m,y}$, $X_n=v_{n,x}$ and $Y_m=v_{m,y}$,
+\begin{equation}\label{eq:Ixy}
+I_{xy}(t)=\sum_{n,m\ge0}b_nc_m\Bigl[p_{nm}(X_n^{2}+Y_m^{2})-2S_{nm}X_nY_m\Bigr].
+\end{equation}
+
+\begin{definition}[Linear onset]\label{def:onset}
+$\Tlin$ is the supremum of the temperatures at which $Q$ fails to be positive definite on
+finitely supported real profiles of a single symmetry sector; for a model with several
+sectors it is the largest of the sector onsets. It is an energy-valued linear onset
+temperature. It is not the transition temperature of an exact Hamiltonian, and it is not
+measured.
+\end{definition}
+
+Real and imaginary parts of a trial function decouple in \eqref{eq:form}, because
+$I_{xy}$ is a real quadratic form in $(X,Y)$, so real trials suffice throughout.
+
+\section{The reserve lemma: from one edge inequality to the ceiling}\label{sec:reserve}
+
+Everything analytic in this paper is one lemma. It says that a bound on the stability form
+for a \emph{single pair of channels at a single energy}, valid uniformly over the admissible
+weights, the imbalance between the two channels and the energy, implies a bound on $Q$ for
+any number of channels and any glue, with a constant that depends on the pair bound only.
+The proof is the positive-resolvent argument of Refs.~\cite{finiteenergy,anisosharp},
+reproduced in full.
+
+For channels $x,y$, real weights $(b_n)_{n\ge0}$ and $(c_m)_{m\ge0}$ and $r>0$ put
+\begin{equation}\label{eq:Br}
+B_r=\sum_{n\ge0}w_n\,r^{-1}b_nX_n^{2}+\sum_{m\ge0}w_m\,r\,c_mY_m^{2}
+=r^{-1}\|g_x\|^{2}+r\|g_y\|^{2},
+\end{equation}
+where $\|g_x\|^{2}=\sum_nw_nb_nX_n^{2}$ and $\|g_y\|^{2}=\sum_mw_mc_mY_m^{2}$.
+
+\begin{proposition}[edge inequality]\label{prop:edge}
+Fix a class of branches and a real number $0<d<1$. Suppose that for every $t>0$, every
+$r>0$, every pair of weight sequences $(b_n),(c_m)$ admissible in that class at any
+temperature, and every real finitely supported $X,Y$,
+\begin{equation}\label{eq:edge}
+B_r+\tfrac12 I_{xy}(t)\ \ge\ d\,B_r .
+\end{equation}
+Then $d$ is called an \emph{edge reserve} for the class. The reserve carries no dependence
+on $t$, on $r$ or on the weights.
+\end{proposition}
+
+\begin{lemma}[reserve lemma]\label{lem:reserve}
+Let $d$ be an edge reserve for a class. Then for every model of that class and every
+$\tau>0$,
+\begin{equation}\label{eq:Qbound}
+Q(v)\ \ge\ \Bigl[1-\frac{2(1-d)\rho}{(2\pi\tau)^{2}}\Bigr]\sum_x\eta_x\|g_x\|^{2}
+\end{equation}
+for every finitely supported real profile, and consequently
+$\kb\Tlin\le\dfrac{\sqrt{2(1-d)\rho}}{2\pi}$.
+\end{lemma}
+
+\begin{proof}
+Choose $R'>\rho$ and put
+$h=(I-\Mmat/R')^{-1}\mathbf 1=\sum_{j\ge0}(\Mmat/R')^{j}\mathbf 1$. Every entry of $\Mmat$
+is nonnegative and $\mathbf 1>0$, so $h>0$ entrywise and
+\begin{equation}\label{eq:hbound}
+\Mmat h=R'(h-\mathbf 1)\ \le\ R'h\quad\text{entrywise,}
+\end{equation}
+and no positivity of the quadratic form of $\Mmat$ is used anywhere.
+
+Apply \eqref{eq:edge} with $r=r_{xy}=h_x/h_y$ for every ordered pair $(x,y)$ and integrate
+against $d\mm_{xy}$. By \eqref{eq:Br} the first term is
+$(h_y/h_x)\|g_x\|^{2}+(h_x/h_y)\|g_y\|^{2}$, so
+\begin{equation}\label{eq:step1}
+Q(v)\ \ge\ \sum_x\eta_x\|g_x\|^{2}
+-\frac{1-d}{(2\pi\tau)^{2}}\sum_{x,y}\eta_x\eta_y\Mmat_{xy}
+\Bigl(\frac{h_y}{h_x}\|g_x\|^{2}+\frac{h_x}{h_y}\|g_y\|^{2}\Bigr).
+\end{equation}
+By reciprocity $\Mmat_{xy}=\Mmat_{yx}$ the two terms in the bracket give the same double
+sum. That sum equals
+\begin{equation}\label{eq:step2}
+\sum_x\frac{\eta_x\|g_x\|^{2}}{h_x}\sum_y\eta_y\Mmat_{xy}h_y
+\;=\;\sum_x\frac{\eta_x\|g_x\|^{2}}{h_x}(\Mmat h)_x
+\;\le\;R'\sum_x\eta_x\|g_x\|^{2}
+\end{equation}
+by \eqref{eq:hbound}, and it is nonnegative. Hence
+\begin{equation}\label{eq:gap}
+Q(v)\ \ge\ \Bigl[1-\frac{2(1-d)R'}{(2\pi\tau)^{2}}\Bigr]\sum_x\eta_x\|g_x\|^{2}.
+\end{equation}
+The left side does not depend on $R'$, so we may let $R'\downarrow\rho$.
+
+Now fix $\tau$ with $(2\pi\tau)^{2}>2(1-d)\rho$ and put
+$\beta(\tau)=1-2(1-d)\rho/(2\pi\tau)^{2}>0$. Letting $R'\downarrow\rho$ in \eqref{eq:gap}
+gives $Q(v)\ge\beta(\tau)\sum_x\eta_x\|g_x\|^{2}$ for every $v$. The normal widths are
+bounded in terms of the finite row bound $R(\tau)$ of Remark~\ref{rem:assume} by
+$s_{n,x}\le w_n+R(\tau)\le(1+R(\tau))w_n$ at this temperature, so the Hilbert norm of the
+pairing problem satisfies
+\begin{equation}\label{eq:norm}
+\sum_x\eta_x\bigl\|(s_xb_x)^{1/2}v_x\bigr\|^{2}
+=\sum_x\eta_x\sum_n s_{n,x}b_{n,x}v_{n,x}^{2}
+\le(1+R(\tau))\sum_x\eta_x\|g_x\|^{2}.
+\end{equation}
+Therefore
+\begin{equation}\label{eq:final}
+Q(v)\ \ge\ \frac{\beta(\tau)}{1+R(\tau)}\sum_x\eta_x\bigl\|(s_xb_x)^{1/2}v_x\bigr\|^{2}
+\end{equation}
+for every $v$, and $Q$ is strictly positive definite at $\tau$. No such $\tau$ is a
+failure temperature, so $\kb\Tlin\le\sqrt{2(1-d)\rho}/(2\pi)$. Disconnected instability
+sets are included, since the argument is applied at each $\tau$ and never along a branch.
+\end{proof}
+
+\begin{corollary}[strict bound from two reserves]\label{cor:strict}
+Let $d$ and $d'$ be edge reserves for the same class with $d>d'$. Then for every model of
+the class,
+\begin{equation}\label{eq:strict}
+\kb\Tlin\le\frac{\sqrt{2(1-d)\rho}}{2\pi}<\frac{\sqrt{2(1-d')\rho}}{2\pi},
+\end{equation}
+and at the larger temperature $\tau'=\sqrt{2(1-d')\rho}/(2\pi)$ the form itself satisfies
+\begin{equation}\label{eq:slack}
+Q(v)\ \ge\ \frac{d-d'}{1-d'}\sum_x\eta_x\|g_x\|^{2}
+\end{equation}
+before the width conversion \eqref{eq:norm}.
+\end{corollary}
+
+\begin{proof}
+The first statement is Lemma~\ref{lem:reserve} applied twice, using $d>d'$. For the second,
+insert $\rho=(2\pi\tau')^{2}/(2(1-d'))$ into \eqref{eq:gap} with $R'\downarrow\rho$:
+\[
+1-\frac{2(1-d)\rho}{(2\pi\tau')^{2}}
+=1-\frac{1-d}{1-d'}=\frac{d-d'}{1-d'}>0 .
+\]
+\end{proof}
+
+\begin{remark}[Why two reserves are needed]\label{rem:tworeason}
+A single reserve $d$ gives a ceiling, but not a strict inequality at a particular model:
+stability at one temperature is not by itself stability in a neighbourhood of it, and no
+monotonicity of the onset in temperature is used anywhere in this paper. The strict
+statement is therefore read off a second reserve $d'<d$ of the same inequality, whose
+survival at a temperature strictly above the ceiling is what closes the argument, and the
+rational margin \eqref{eq:slack} records the slack. The two reserves are different
+thresholds of the same edge inequality, not a chain of increasingly strong hypotheses: a
+smaller reserve does not by itself yield a smaller ceiling, and each strict constant is
+computed from its own covering. This is the logical structure of
+Refs.~\cite{finiteenergy,anisosharp}, and the slacks $1/2050$, $1/1125$, $9/6820$ and
+$1/754$ in Table~\ref{tab:reserve} are the numbers that appear in the released statements.
+\end{remark}
+
+\begin{remark}[The role of connectedness]\label{rem:connect}
+The proof never uses a branch. It uses one reflected normal branch at one temperature,
+finite rows $R(\tau)$, and the edge inequality. A model whose instability set is
+disconnected, or which has no continuous branch at all, is covered as long as a positive
+reflected normal branch exists at the tested temperatures.
+\end{remark}
+
+\section{The certified finite part: edge inequalities and records}\label{sec:finite}
+
+By Lemma~\ref{lem:reserve} the whole analytic problem is reduced to the single inequality
+\eqref{eq:edge}. That inequality is finite dimensional but not small: it involves all
+frequencies, all energies and all admissible weights. The released records reduce it
+further, by an enclosure of the head weight against a finite set of tail frequencies in a
+fixed number of stages, to a finite set of rational inequalities on rectangles, and then
+verify those in exact arithmetic. We state the outcome and the record, and we describe the
+mechanism, because the mechanism is what decides which reserve belongs to which class.
+
+\subsection{The reserves}
+
+\begin{theorem}[edge reserves]\label{thm:reserves}
+The following numbers are edge reserves in the sense of Proposition~\ref{prop:edge}. In
+each pair the first member is the reserve that is verified with equality allowed, so it
+yields a supremum statement and the non-strict ceiling, and the second is a smaller reserve,
+verified with the slack left in, which \eqref{eq:slack} converts into a strict ceiling at a
+somewhat larger constant:
+\begin{enumerate}
+\item[\rm(a)] $d=317/1000$ and $d'=19/60$, centered class, Ref.~\cite{finiteenergy};
+\item[\rm(b)] $d=119/400$ and $d'=19/64$, causal class, Ref.~\cite{finiteenergy};
+\item[\rm(c)] $d=247/1000$ and $d'=123/500$, causal class, Ref.~\cite{optimum};
+\item[\rm(d)] $d=3189/10000$ and $d'=159/500$, centered class, Ref.~\cite{anisosharp}.
+\end{enumerate}
+Status: \PROVED{} for each pair, conditionally on the exact finite statement of
+Sec.~\ref{sec:finite}, which is \CERT{}: it was verified twice by independently written
+exact-arithmetic programs and, in its finite core, in Lean~4.35.0. The analytic part
+(the Harnack and Poisson rearrangement, the width cone, the cascade, the head criterion and
+the exterior regions) was reviewed in Refs.~\cite{finiteenergy,anisosharp} and is not
+reproduced here; the reduction that uses it is Lemma~\ref{lem:reserve}, which is complete.
+\end{theorem}
+
+\subsection{The finite statement and what it certifies}
+
+\begin{proposition}[finite core, statement]\label{prop:finitecore}
+Fix a class and a reserve $d$. Let $(r,t)$ run over the compact region
+$[1,3]\times[0,1/2]$, the primary enclosure of Refs.~\cite{finiteenergy,anisosharp}, or over
+the symmetry-free region $[1/3,3]\times[0,1/2]$ used by the second program of
+Ref.~\cite{anisosharp}. Split the head weight interval into sub-boxes, and in
+Ref.~\cite{finiteenergy} the head weights $b_0,c_0$ into nine sub-intervals each, and
+complete the head frequency against twenty tail frequencies in three stages: Stage~0 pairs
+each tail mode with the head, Stage~1 pairs the first tail mode with the higher tail modes,
+and Stage~2 pairs the second tail mode with the higher ones. The finite statement is that on
+every leaf of this decomposition the exact rational expression obtained by dropping no
+positive term and bounding every negative one by the retained completions is nonnegative,
+with equality allowed for the reserve $d$ and with the rational slack \eqref{eq:slack} kept
+for the reserve $d'$. Outside the compact region a single cruder argument is used, with the
+share $\alpha_{\mathrm{ext}}=617/1000$ left by the full Hankel bound in
+Ref.~\cite{finiteenergy}; in Ref.~\cite{anisosharp} the exterior region uses neither the
+cascade nor the head minimisation.
+Status: \CERT{}.
+\end{proposition}
+
+The primary covering of Ref.~\cite{anisosharp} needs $367$ leaves at depth $24$ and the
+independent one $1036$ leaves at depth $13$ for the centered reserve $3189/10000$, against
+$159$ and $466$ leaves for the reserve $159/500$ of its first version. The primary program
+uses the symmetry $r\leftrightarrow r^{-1}$ to cover an area of one and halves the $t$
+interval while the $r$ interval is still wide, so that the tail frequencies are resolved
+before the head weight; the second program does not use the symmetry and covers the full
+domain of area $4/3$ by four-way subdivision. The reserve that the search certified is the
+largest it reached inside its depth budget, not the largest the scheme can reach: the
+shallower caps of the first version certified $3188/10000$ and the caps used here certified
+$3189/10000$, and the first attempt at $3189/10000$ failed only at those caps, so that
+raising a cap is bookkeeping and weakens no inequality. The next grid point $3190/10000$
+exhausted the remaining time budget and is left unresolved, neither rejected nor shown to be
+impossible. Each guarded run corrupts a
+production quantity and must exit with status $1$ and a line beginning \texttt{REJECT}; the
+released records report fourteen expected guarded mutant failures for Ref.~\cite{optimum},
+thirteen and eight mutated runs for the two programs of Ref.~\cite{finiteenergy}, and ten
+guarded runs for each program of Ref.~\cite{anisosharp}. The tightest leaves are recorded
+explicitly, for example
+$(r,t)\in[135/128,271/256]\times[0,1/256]$ with head box $I_6\times I_5$ and certified slack
+$0.000078371512$ for the centered reserve $317/1000$, and
+$(r,t)\in[131/128,33/32]\times[0,1/256]$ with certified slack $0.000003769886$ for the
+causal reserve $19/64$, both in Ref.~\cite{finiteenergy}.
+
+\subsection{The mechanism, and why the reserves are ordered as they are}
+
+Three ingredients decide the number.
+
+The \emph{head} frequency carries the largest weight and is completed against the tail.
+Completing the head against each tail with a static share of the tail mass stalls: at the
+least favourable imbalance the first tail frequency falls short of its stability threshold
+$2/9$ once the reserve approaches $0.30$, because the static share satisfies
+$\alpha_{0,1}\le0.634$ and $r\alpha_{0,1}\le0.2113<2/9$ at $r=1/3$ (Ref.~\cite{finiteenergy},
+discussion of the Stage-1 mechanism). That is why the argument without the first stage,
+which is the argument of Ref.~\cite{optimum}, stops at the reserve $247/1000$ and cannot
+approach $0.30$, whereas the staged argument of Ref.~\cite{finiteenergy} reaches $317/1000$.
+
+The \emph{cascade} removes the stall by stabilising the first tail mode against the higher
+tail modes before the head is touched, which raises its effective normal mass. One exact
+difference-of-squares identity carries all stages, written
+\begin{equation}\label{eq:cascade}
+S_{mk}^{2}-p_{mk}^{2}=\frac{4p_{mk}}{w_mw_k}
+\end{equation}
+in the notation of Ref.~\cite{finiteenergy}, so a single monotonicity statement suffices,
+and every gain is delivered to the head completion of its own frequency, with the head
+weight as the only divisor and no gain reused. With the cascade the centered reserve rises
+from $19/60$, the strict value of Ref.~\cite{finiteenergy}, through $159/500$, the value of
+the first version of Ref.~\cite{anisosharp}, to $3189/10000$; the causal reserve, which
+cannot use the cone, stays at $19/64$.
+
+The \emph{class} decides whether the widths may be used. In the centered class the cone
+\eqref{eq:cone} is available and gives the sharper lower envelope on the tail weights; in
+the causal class only \eqref{eq:harnack} is retained, with reserves $119/400$ and $19/64$
+in the third row of Table~\ref{tab:reserve}, which is why the two causal constants sit
+above the corresponding centered constants of the same record: by $1.42\%$ in the
+supremum form and by $1.44\%$ in the strict form.
+
+\section{The ceilings}\label{sec:ceilings}
+
+\begin{theorem}[ceilings]\label{thm:ceil}
+For every model of the stated class, with $\rho$ the norm \eqref{eq:moment} of the glue
+moment matrix:
+\begin{enumerate}
+\item[\rm(a)] \emph{Centered class, supremum.}
+The supremum $\sup\kb\Tlin/\sqrt\rho$ is at most $\Cthree$, where
+$\Cthree=\sqrt{6811/5000}/(2\pi)=0.1857550243988$, the supremum being over all models of the
+class with finitely many channels, all finite positive glue energies and all admissible
+centered branches.
+\item[\rm(b)] \emph{Centered class, strict.}
+$\kb\Tlin<\Cstar\sqrt\rho$ with $\Cstar=\sqrt{341/250}/(2\pi)=0.1858777114719$, the bare
+slack at $\tau=\Cstar\sqrt\rho$ being the rational $9/6820$.
+\item[\rm(c)] \emph{Causal class, strict.}
+$\kb\Tlin<\Ccaus\sqrt\rho$ with $\Ccaus=\sqrt{45/32}/(2\pi)=0.1887345454$, the bare slack at
+$\tau=\Ccaus\sqrt\rho$ being $1/1125$; and $\kb\Tlin<\Ctwoone\sqrt\rho$ with
+$\Ctwoone=\sqrt{377/250}/(2\pi)=0.1954433070$, slack $1/754$.
+\item[\rm(d)] \emph{Centered class, earlier constants.}
+$\kb\Tlin<\Ccent\sqrt\rho$ with $\Ccent=\sqrt{41/30}/(2\pi)=0.1860593214$, slack $1/2050$;
+$\kb\Tlin\le\sqrt{683/500}/(2\pi)\,\sqrt\rho=0.1860139355\sqrt\rho$, the corresponding
+supremum bound of the same record; and the two earlier coefficients of
+Refs.~\cite{univglue,optimum}, $\kb\Tlin\le\Cone\sqrt\rho$ with
+$\Cone=\sqrt{413/250}/(2\pi)=0.2045620904$, obtained by an additive first-frequency
+comparison without a recorded slack, and $\kb\Tlin\le\Upre\sqrt\rho$ with
+$\Upre=\sqrt{6466219/3576050}/(2\pi)=0.2140146706$ for the centered class of the earlier
+note. The last two are not consequences of an edge reserve, so their status is that of their
+records and not that of Theorem~\ref{thm:reserves}.
+\item[\rm(e)] \emph{Causal class, supremum.}
+$\sup\kb\Tlin/\sqrt\rho\le\sqrt{281/200}/(2\pi)=0.1886506447$ for the causal class, from
+the reserve $119/400$ of Ref.~\cite{finiteenergy}, and
+$\le\sqrt{753/500}/(2\pi)=0.1953136596$ from the reserve $247/1000$ of
+Ref.~\cite{optimum}.
+\end{enumerate}
+Status: \PROVED{} in the sense of Theorem~\ref{thm:reserves}: analytic reduction complete
+here, finite part certified in exact arithmetic, statements released and independently
+reviewed in Refs.~\cite{univglue,optimum,finiteenergy,anisosharp}.
+\end{theorem}
+
+\begin{proof}
+Apply Lemma~\ref{lem:reserve} with the reserves of Theorem~\ref{thm:reserves} and
+Corollary~\ref{cor:strict} where two reserves for the same class are available, using
+$2(1-3189/10000)=6811/5000$, $2(1-159/500)=341/250$, $2(1-317/1000)=683/500$,
+$2(1-19/60)=41/30$, $2(1-119/400)=281/200$, $2(1-19/64)=45/32$,
+$2(1-247/1000)=753/500$ and $2(1-123/500)=377/250$, which is the content of \rm(a) to \rm(c)
+and of \rm(e). The slacks of \rm(b), \rm(c) and \rm(d) are the quotients \eqref{eq:slack},
+$(3189/10000-159/500)/(341/500)=9/6820$,
+$(119/400-19/64)/(45/64)=1/1125$,
+$(317/1000-19/60)/(41/60)=1/2050$ and $(247/1000-123/500)/(377/500)=1/754$.
+Items \rm(d) for $\Cone$ and $\Upre$ are not of the reserve form and are imported from their
+records; they appear here so that the table is ordered, not because this proof produces
+them.
+\end{proof}
+
+\begin{remark}[Ordering]\label{rem:ordering}
+Theorem~\ref{thm:ceil} gives a chain of strict inequalities between explicit numbers,
+\begin{equation}\label{eq:chain}
+\Cinf<\Cthree<\Cstar<\frac{\sqrt{683}}{2\pi\sqrt{500}}<\Ccent<\frac{\sqrt{281/200}}{2\pi}
+<\Ccaus<\frac{\sqrt{753/500}}{2\pi}<\Ctwoone<\Cone<\Upre ,
+\end{equation}
+each link after the first being a comparison of rationals under a square root. The first
+constant is the exact scalar value of Sec.~\ref{sec:sharp}, and the inequality
+$\Cinf<\Cthree$ is read off the certified enclosure of that section. The two smallest
+coupled constants are the sharpest known for the centered class, and they lie $1.66\%$ and
+$1.72\%$ above the scalar value.
+\end{remark}
+
+\begin{table}[h]
+\caption{The ceilings, ordered. The last column is the relative excess over the exact scalar
+constant $\Cinf=0.18272624777232952$. Status \emph{supremum} means that the number bounds
+$\sup\kb\Tlin/\sqrt\rho$ over the class, so for an individual model the statement is
+non-strict; \emph{strict} means $\kb\Tlin<C\sqrt\rho$ for every model of the class, with the
+rational slack of Table~\ref{tab:reserve}; \emph{earlier} means superseded. The records
+behind the rows are, in order of appearance, Ref.~\cite{gamma}, Ref.~\cite{anisosharp} for
+$\Cthree$ and $\Cstar$, Ref.~\cite{finiteenergy} for the centered pair and the causal pair,
+Ref.~\cite{optimum} for $\Ctwoone$ and $\Cone$, and Ref.~\cite{univglue} for $\Upre$. Labels
+follow Sec.~\ref{sec:model}: $\Cinf$ is \PROVED{}, the reserves are \PROVED{} subject to a
+\CERT{} certificate, and the decimals follow by elementary arithmetic.\label{tab:ceil}}
+\small
+\begin{tabular}{@{}llllll@{}}
+\hline
+constant & class & status & exact form & decimal & excess over $\Cinf$ \\
+\hline
+$\Cinf$ & scalar & exact & transcendental & $0.1827262478$ & \\
+$\Cthree$ & centered & supremum & $\sqrt{6811/5000}/(2\pi)$ & $0.1857550244$ & $1.658\%$ \\
+$\Cstar$ & centered & strict & $\sqrt{341/250}/(2\pi)$ & $0.1858777115$ & $1.725\%$ \\
+$\sqrt{683/500}/(2\pi)$ & centered & supremum & $\sqrt{683/500}/(2\pi)$ & $0.1860139355$ & $1.799\%$ \\
+$\Ccent$ & centered & strict & $\sqrt{41/30}/(2\pi)$ & $0.1860593214$ & $1.824\%$ \\
+$\sqrt{281/200}/(2\pi)$ & causal & supremum & $\sqrt{281/200}/(2\pi)$ & $0.1886506447$ & $3.242\%$ \\
+$\Ccaus$ & causal & strict & $\sqrt{45/32}/(2\pi)$ & $0.1887345454$ & $3.288\%$ \\
+$\sqrt{753/500}/(2\pi)$ & causal & supremum & $\sqrt{753/500}/(2\pi)$ & $0.1953136596$ & $6.889\%$ \\
+$\Ctwoone$ & causal & strict & $\sqrt{377/250}/(2\pi)$ & $0.1954433070$ & $6.960\%$ \\
+$\Cone$ & causal & earlier & $\sqrt{413/250}/(2\pi)$ & $0.2045620904$ & $11.95\%$ \\
+$\Upre$ & centered & earlier & $\sqrt{6466219/3576050}/(2\pi)$ & $0.2140146706$ & $17.12\%$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{Reserves and slacks. A reserve $d$ gives a ceiling at $\sqrt{2(1-d)}/(2\pi)$; two
+reserves $d>d'$ for the same class give the strict statement at $\sqrt{2(1-d')}/(2\pi)$ with
+the bare slack $(d-d')/(1-d')$ of Corollary~\ref{cor:strict}. Leaves and guarded runs are
+the certification records of the named preprints.\label{tab:reserve}}
+\small
+\begin{tabular}{@{}llllll@{}}
+\hline
+class & reserve $d$ & reserve $d'$ & slack & constant(s) & record \\
+\hline
+centered & $3189/10000$ & $159/500$ & $9/6820$ & $\Cthree$, $\Cstar$ & 24410276 \\
+centered & $317/1000$ & $19/60$ & $1/2050$ & $\sqrt{683/500}/(2\pi)$, $\Ccent$ & 24380829 \\
+causal & $119/400$ & $19/64$ & $1/1125$ & $\sqrt{281/200}/(2\pi)$, $\Ccaus$ & 24380829 \\
+causal & $247/1000$ & $123/500$ & $1/754$ & $\sqrt{753/500}/(2\pi)$, $\Ctwoone$ & 24374032 \\
+centered & n/a & n/a & n/a & $\Upre$ & 24372930 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Sharpness: the exact scalar constant and the floor of the method}\label{sec:sharp}
+
+A ceiling is only informative next to a lower bound. In the scalar case both are available,
+and the interval between them is what the coupled constants of Sec.~\ref{sec:ceilings}
+occupy.
+
+\subsection{The scalar constant}
+
+In the single-channel model with a normalized spectrum, the linear instability of the
+isotropic linearized Eliashberg equation at coupling $\lambda$ is governed by a spectral top
+$h$ of a self-adjoint positive operator built from the spectrum, and the onset is
+$\tau=\Omega h$ in units of the phonon energy. For the one-parameter family of spectra with
+a power-law weight at low frequency, indexed by $\gamma$, the spectral top is certified as
+follows.
+
+\begin{theorem}[scalar constant]\label{thm:scalar}
+Write $c_\gamma$ for the scalar constant of the power-law family, so that the linear
+condition reads $\kb\Tlin<c_\gamma\sqrt{g^{2}}$ with $g^{2}=\lambda\Omega^{2}$, and write
+$\Cinf=c_{2}$. Then
+\begin{equation}\label{eq:cinf}
+0.1827262477723295078215179<\Cinf<0.1827262477723295176168720,
+\end{equation}
+an interval of relative width $5.4\times10^{-17}$ and of absolute width below
+$9.8\times10^{-18}$, so $\Cinf$ rounds to $0.18272624777232952$ at seventeen decimal places.
+The value is attained as the limit of the single Einstein line,
+$\kb\Tlin/\sqrt{\lambda}\Omega\to\Cinf$ as $\lambda\to\infty$, so no constant smaller than
+$\Cinf$ can hold for the scalar class, and the $\gamma=2$ normalisation is exactly the
+strong-coupling Einstein ceiling. For the other members of the family reported by the
+record, the enclosure of the same kind is available for every member, with relative width at
+most $10^{-6}$ and endpoints rounded outward:
+$c_{1/2}\in(0.80943835,0.80943861)$, $c_{1}\in(0.2558364,0.2558366)$,
+$c_{3/2}\in(0.19999096,0.19999098)$ and $c_{3}\in(0.170998736,0.17099874)$. Only the
+$\gamma=2$ member is certified to seventeen decimal places, and only that member is used as
+a ceiling in this paper.
+Status: \PROVED{} upstream, and \CERT{} for the enclosure, Ref.~\cite{gamma} with the
+gauge-fixed eigenvalue normalisation of Ref.~\cite{finiteband}. A separate secondary
+citation, unrefereed and not verified here, places the normalising limit in the interval
+$1.318139<g(2)<1.31815$ \cite{kondratev}.
+\end{theorem}
+
+The proof has two halves. The upper half is an extremal principle for the spectrum at fixed
+$\lambda$ and $M$: among all spectra with a given mass and second moment, the Einstein line
+maximizes the spectral top, a statement proved by a transfer-by-transfer comparison and by
+convexity in the spectrum in Ref.~\cite{rens} and used as an input in
+Refs.~\cite{cutoff,gamma}. The lower half is an explicit evaluation of the Einstein limit,
+in which the zero-transfer thermal term cancels between gap and self-energy and neither the
+nonzero-transfer diagonal Hankel contribution nor the negative mass term is dropped
+\cite{gamma}. The singular-value bounds that turn the comparison into an enclosure are the
+content of Ref.~\cite{gamma}; what this paper imports is the resulting number and its
+certified width, not the singular-value analysis, which is not reproduced here.
+
+\begin{remark}[Prior art, stated plainly]\label{rem:prior}
+The sharp scalar constant is not new here. It is the value of Conjecture~2 of
+Kiessling, Altshuler and Yuzbashyan \cite{kay} as formulated in their programme, and an
+unrefereed repository manuscript \cite{kondratev} states a proof of that bound. What
+Refs.~\cite{gamma,finiteband} add is an independently certified enclosure, and what
+Refs.~\cite{optimum,finiteenergy,anisosharp} add is the extension from one channel with
+one spectrum to a coupled class of channels with different bounded densities of states and
+a glue moment matrix. Any statement in this paper about a \emph{new} ceiling is a statement
+about the coupled class.
+\end{remark}
+
+\subsection{The soft-glue limit: where the ceiling is attained}\label{sec:soft}
+
+The scalar value $\Cinf$ belongs to the coupled problem, because the scalar case is a member
+of the class and $\Cinf\le\sup\kb\Tlin/\sqrt\rho$. The reverse question, whether the supremum
+is strictly larger, is open. What is proved is that the lower endpoint is attained, in a
+limit in which the glue becomes soft and the channel structure is equitable; the statement is
+a corollary of Ref.~\cite{finiteenergy}, and its ingredients are the angular-locking argument
+and the exact limiting coefficient for scaled centered boxes recorded in the supplement of
+Ref.~\cite{univglue}.
+
+\begin{theorem}[soft-glue limit]\label{thm:softlimit}
+Let $d\ge2$ channels carry counting measure, and let $\mathrm{d}\mathfrak m_{xy}$ be fixed
+reciprocal entrywise nonnegative moment measures on positive energies, with
+$J=\int\mathrm{d}\mathfrak m$ and $L=\int e^{-2}\mathrm{d}\mathfrak m$ finite and the graph of the positive
+off-diagonal entries of $J$ connected. The same retarded interaction enters the normal and
+the pairing equations, with no additional instantaneous term, and the branch is centered,
+with even density of states and zero real shift. Channel $x$ carries the box density of
+states $\mathbf 1_{|\xi|<W_x^{\varepsilon}}$ with $W_x^{\varepsilon}=\omega_x\varepsilon^{-p}$,
+where $\omega_x>0$ and $p>1$ are fixed. Every boson energy $e$ is replaced by
+$\sqrt\varepsilon\,e$ without changing its moment weight, so that $J$ is unchanged, and
+$\rho=\|J\|$. Then
+\begin{equation}\label{eq:softlimit}
+\lim_{\varepsilon\downarrow0}\frac{\kb\Tlin^{\varepsilon}}{\sqrt\rho}
+=\Cinf\sqrt{\frac{\mathbf 1^{\!\top}J\mathbf 1}{d\,\rho}},
+\end{equation}
+which equals $\Cinf$ if and only if $J\mathbf 1=\rho\mathbf 1$, and is strictly smaller
+otherwise.
+Status: \PROVED{}, Ref.~\cite{finiteenergy}, with the two ingredients taken from the
+supplement of Ref.~\cite{univglue}.
+\end{theorem}
+
+Two explicit models show both outcomes. Two Lorentzian atoms at base energies $1$ and $2$
+with
+\begin{equation}\label{eq:atoms}
+M_1=\begin{pmatrix}1/2&0\\0&0\end{pmatrix},\qquad
+M_2=\begin{pmatrix}1/4&1/4\\1/4&3/4\end{pmatrix},
+\end{equation}
+give $J=M_1+M_2$ of norm one with equal row sums and $L=M_1+M_2/4$ with row sums $5/8$ and
+$1/4$; with boxes $W=(1,2)/\varepsilon^{2}$ the leading normal widths satisfy
+$\varepsilon s_{n,1}\to5/8$ and $\varepsilon s_{n,2}\to1/4$ at every fixed frequency, so the
+spectra, the densities of states and the normal widths are all different, and yet
+$\kb\Tlin\to\Cinf$. A single soft atom with $J=L=\bigl(\begin{smallmatrix}2&1\\1&1\end{smallmatrix}\bigr)$
+has moment norm $(3+\sqrt5)/2$ and mean row sum $5/2$, so the limit is
+$\Cinf\sqrt{5/(3+\sqrt5)}\approx0.977\,\Cinf$, strictly below $\Cinf$.
+
+The limit is narrow in the following precise sense, and the disclaimer belongs to the
+statement. It asserts neither equality nor excess of the finite-$\varepsilon$ ratio over
+$\Cinf$; it is not a bandwidth bound uniform in $\varepsilon$; and it does not apply to
+arbitrary centered bandwidths, to disconnected or degenerating moment graphs, or to
+finite-energy optima. In particular it does not decide whether any single model at finite
+glue attains $\Cinf$, and it does not decide whether the supremum over the class exceeds
+$\Cinf$: it shows only that the interval $[\Cinf,\Cthree]$ cannot be shortened by moving its
+lower endpoint upward.
+
+\subsection{The floor of the frozen-sequence method}
+
+The reserve argument has a limit, and the limit is proved.
+
+\begin{proposition}[floor of the method]\label{prop:floor}
+Let $\mathcal W_{\mathrm{cent}}$ be the set of weight sequences of the centered class. An
+inequality of the form \eqref{eq:edge}, required to hold for every member of
+$\mathcal W_{\mathrm{cent}}$ at every $t>0$ and every $r>0$ with a reserve $d$ independent
+of $t$, $r$ and the weights, cannot have $d$ larger than $1-\Lambda/2$ where $\Lambda$ is
+the largest value of $-I_{xy}/B_r$ over that set, since \eqref{eq:edge} reads
+$-I_{xy}/B_r\le2(1-d)$. Explicit weight sequences and explicit trial vectors give
+$\Lambda>1.357186$, hence $d<0.321407$ and no such proof gives a constant below
+\begin{equation}\label{eq:floor}
+\frac{\sqrt{\Lambda}}{2\pi}>0.185411 .
+\end{equation}
+Status: \PROVED{}, Ref.~\cite{anisosharp} (proved in Ref.~\cite{finiteenergy}).
+\end{proposition}
+
+This floor is a statement about the method and not a lower bound for the supremum over the
+class: a proof that used the normal equation to tie the weights to the masses would not be
+subject to it. The reserve $3189/10000=0.3189$ of Ref.~\cite{anisosharp}, the one that
+yields the constant $\Cthree$, is below the reserve threshold $d^{*}=0.321407$ of the
+floor argument, and the floor coefficient itself is $0.19\%$ below $\Cthree$. The floor sits at the fraction $0.887$ of the
+interval $[\Cinf,\Cthree]$ measured from $\Cinf$, so at most the upper $11.3\%$ of that
+interval is reachable by a sharper version of the same edge inequality. Whether the supremum equals
+$\Cinf$ or lies strictly above it is \OPEN{}, and no conjecture is made here. A direct
+finite-resolution sweep of $600$ admissible centered Poisson weight sequences at thirty-five
+frequencies, on a grid in imbalance and energy, observed the smallest reserve $0.32147971$
+at $r=1$, $t=10^{-4}$ and $b_0=c_0=0.92$; that observation is \NUM{}, is not an infimum, and
+does not replace the analytic floor. The question is confined to several channels: for a
+single channel, and for coupled channels with energy-independent densities of states, the
+constant $\Cinf$ itself holds, so only channels with different energy-dependent profiles can
+move the supremum above the scalar value.
+
+\section{Coupling-resolved ceilings and ratios for real materials}\label{sec:material}
+
+For a single isotropic channel the ceiling is a function of $\lambda$ at fixed $M$, written
+$C(\lambda)$, because at fixed $\lambda$ and $M=\lambda\Omega^{2}$ the spectrum enters only
+through the probability measure on $u=\omega^{2}/\Omega^{2}$ with $\int d\mu=1$ and
+$\int u\,d\mu=1$. Strict growth of $C(\lambda)$ is a corollary of strict single-Einstein
+optimality at fixed $(\lambda,M)$ \cite{rens}, and $C(\lambda)\uparrow\Cinf$ as
+$\lambda\to\infty$.
+
+The values are certified in exact arithmetic on a rational grid.
+
+\begin{table}[h]
+\caption{Coupling-resolved ceilings $C(\lambda)$ and the mean-square threshold for a
+$300$ K ceiling. Columns two and three are the \CERT{} endpoints of the enclosure of
+$C(\lambda)$, computed in exact rational arithmetic and checked by two independent programs;
+the ratio $C/\Cinf$ and the threshold $M^{*}$ are \NUM{} evaluations of the printed
+endpoints. Rows at $\lambda=2.5$ and $\lambda=6$ are omitted for space. The full set has
+$19$ double-certified intervals: the nine grid couplings shown and omitted here, from
+$\lambda=0.5$ to $10$, and the ten conventional and hydride couplings of
+Sec.~\ref{sec:material}; all nineteen are tabulated in the supplement.\label{tab:clambda}}
+\small
+\begin{tabular}{@{}rrrrr@{}}
+\hline
+$\lambda$ & $C_{\mathrm{lo}}(\lambda)$ & $C_{\mathrm{hi}}(\lambda)$ & $C/\Cinf$ & $M^{*}$ at $300$ K (eV$^{2}$) \\
+\hline
+$0.5$ & $0.0557608245$ & $0.0557608803$ & $0.305161$ & $0.21494606$ \\
+$1.0$ & $0.1146194547$ & $0.1146195694$ & $0.627274$ & $0.05087111$ \\
+$1.5$ & $0.1381081893$ & $0.1381083275$ & $0.755821$ & $0.03503878$ \\
+$2.0$ & $0.1497235932$ & $0.1497237430$ & $0.819388$ & $0.02981312$ \\
+$3.0$ & $0.1610715064$ & $0.1610716675$ & $0.881491$ & $0.02576027$ \\
+$4.0$ & $0.1666217589$ & $0.1666219257$ & $0.911866$ & $0.02407268$ \\
+$10.0$ & $0.1763847604$ & $0.1763849369$ & $0.965296$ & $0.02148156$ \\
+$\infty$ & $\Cinf$ & $\Cinf$ & $1$ & $0.02001641$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The last column is the mean-square phonon energy, in electron volts squared, that a
+$300$ K ceiling allows at that coupling. Since $\tau\le C(\lambda)\sqrt M$, a material whose
+$\lambda$ and $M$ place it below that threshold, $M<M^{*}(300\,\mathrm{K})$, cannot have a
+linear onset above $300$ K in this model class whatever its spectrum, and the threshold
+decreases with $\lambda$ because $C(\lambda)$ increases.
+
+\subsection{Ratios for four conventional and hydride cases}
+
+The following table converts the ceiling into kelvin using literature couplings and
+digitized second moments. It is \NUM{} in every entry that involves a measurement or a
+digitization, and it is a ratio of a measured transition temperature to a computed
+ceiling, not a validation of the theory and not a prediction for a material.
+
+\begin{table}[h]
+\caption{Measured transition temperatures against the computed ceilings. $M$ is
+$\lambda\langle\omega^{2}\rangle$ evaluated from digitized Eliashberg functions. The
+digitization uncertainty of $5$ to $10\%$ in $M$ stated in Sec.~\ref{sec:limits} is not a
+confidence interval and is not propagated into the printed ratios, which also omit the
+spread between published functions for the same material.
+$T_{\mathrm{ceil}}(\lambda)$ uses the certified $C(\lambda)$ intervals of the supplement,
+sampled in Table~\ref{tab:clambda},
+$T_{\mathrm{ceil},\infty}$ uses $\Cinf$, and every ratio is \NUM{}, quoted to the digits
+the underlying digitization supports; the certified intervals and the conversion script
+are given in the supplement. For $\mathrm{MgB_{2}}$ the digitized reference spectrum is
+isotropic while the material is strongly anisotropic, so its ratio is against an isotropic
+reference only. For $\mathrm{LaH_{10}}$ the measured points and the density-functional
+pressures do not coincide: the measured $244$ to $245$ K points are at $145$ and $135$ GPa,
+paired here to a density-functional spectrum at $129$ GPa.\label{tab:mat}}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\hline
+material & $\lambda$ & $M$ (eV$^{2}$) & $T_{\mathrm{ceil}}(\lambda)$ (K) & $T_{\mathrm{ceil},\infty}$ (K) & $T_c$ (K) & $T_c/T_{\mathrm{ceil}}$ \\
+\hline
+Pb & $1.68$ & $0.00006249$ & $13.13$ & $16.76$ & $7.19$ & $0.548$ / $0.429$ \\
+Nb & $1.26$ & $0.00034660$ & $27.90$ & $39.48$ & $9.25$ & $0.332$ / $0.234$ \\
+$\mathrm{MgB_{2}}$ & $0.61$ & $0.0028654$ & $45.84$ & $113.51$ & $39$ & $0.851$ / $0.344$ \\
+$\mathrm{LaH_{10}}$, $129$ GPa & $3.62$ & $0.036826$ & $367.18$ & $406.92$ & $244$--$245$ & $0.665$--$0.667$ / $0.600$--$0.602$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The two ratios in the last column are $T_c/T_{\mathrm{ceil}}(\lambda)$ and
+$T_c/T_{\mathrm{ceil},\infty}$. Reading the four rows: lead sits at $0.43$ of the scalar
+ceiling and at $0.55$ of the ceiling that its own coupling allows; niobium at $0.23$ and
+$0.33$; magnesium diboride at $0.34$ and $0.85$ in its isotropic reference; and
+$\mathrm{LaH_{10}}$ at about $0.60$ of the scalar ceiling and $0.67$ of the ceiling at its
+own coupling. Every measured value is below both ceilings, as it must be if the ceilings
+are ceilings. What is informative is the size of the gap and its dependence on $\lambda$,
+and the two columns order the four cases differently. Against the scalar ceiling the ratios
+are $0.43$, $0.23$, $0.34$ and $0.60$; against the ceiling at the coupling of each material
+they are $0.55$, $0.33$, $0.85$ and $0.66$ to $0.67$. The coupling-resolved ratio therefore
+rises towards $\mathrm{MgB_2}$, whose coupling is the smallest in the table and whose
+reference spectrum is isotropic, and it falls again for the hydride, whose coupling is the
+largest. The scalar ceiling is not a tight statement at small $\lambda$, and the largest
+ratio in the table belongs to the material whose reference spectrum is the least faithful,
+so no ordering of materials by proximity to the ceiling is asserted. The only quantitative reading is the one the tables
+support: every measured value lies strictly below the ceiling at its own coupling, and the
+distance to the ceiling at fixed $300$ K is smallest where the mean square
+$\lambda\langle\omega^{2}\rangle$ is largest.
+
+\section{The ceiling is Coulomb robust; the optimizer is not}\label{sec:coulomb}
+
+A ceiling in terms of $\rho$ alone would be vacuous if a pairing-only repulsion could be
+used to raise the onset without limit, and a ceiling in terms of $C(\lambda)\sqrt M$ would be
+vacuous if the maximizing spectrum changed whenever a repulsion was switched on. The
+released record answers the two questions in opposite directions.
+
+\begin{proposition}[Coulomb robustness of the ceiling]\label{prop:robust}
+Let a pairing-only Coulomb repulsion act through a cutoff that is common to every spectrum
+compared at fixed $\lambda$ and $M$, with pseudopotential $\muS\ge0$. The repulsion enters
+the folded stability form as a positive semidefinite rank-one term, so no spectrum exceeds
+$C(\lambda)\sqrt M$ at any $\muS\ge0$.
+Status: \PROVED{}, Ref.~\cite{cutoff}.
+\end{proposition}
+
+\begin{proposition}[Fragility of the optimizer]\label{prop:fragile}
+The optimizer is not robust. Three two-line spectra sharing $(\lambda,M,\muS,\omega_c)$ with
+the Einstein line have a strictly larger linear onset, at $\muS/\lambda=2/3$, $3/4$ and $1$,
+with temperature gains of at least $2.59$, $29.09$ and $82.57$ percent; and four further
+counterexamples at $\muS/\lambda=0.4786$ to $0.4890$ and $\lambda=25.6$ to $28$ show that
+$\muS/\lambda=1/2$ is not a threshold of the model. All are certified in exact rational
+arithmetic by two independent verifiers.
+Status: \CERT{}, Ref.~\cite{cutoff}.
+\end{proposition}
+
+The consequence for the present paper is a scoping statement. The ceiling of
+Sec.~\ref{sec:material} survives any Coulomb repulsion; the identification of the Einstein
+line as the worst case does not survive one, and the statement that a spectrum cannot beat
+the ceiling is therefore weaker than the statement that a specific spectrum achieves it.
+
+\section{Vertex corrections: a dichotomy}\label{sec:vertex}
+
+Migdal's theorem makes the vertex a small correction when the phonon energy is small
+compared with the electronic bandwidth. A ceiling that ignores vertices therefore has to
+say what happens when they are retained. The released record treats the first crossed
+skeleton, which is the leading vertex correction, in three regimes, and the answers differ
+qualitatively. Throughout, $\chi=m\sqrt\lambda$ is the crossing parameter, with
+$m=\Omega_{\max}/W$ the mass ratio, $\theta=\Omega_{\max}/(2\nu)=(2\pi\eta\Cinf\sqrt\lambda)^{-1}$
+the Matsubara ratio at $\tau=\eta\Tceil$, $x=\pi\tau/W=\pi\eta\Cinf\sqrt\lambda\,m$ the
+adiabatic parameter, $A$ the density-of-states ratio, and $B=\max(1,A v_{\max}R)$ a
+geometric factor. The crossing parameter is written $\chi$ in this section so that it is
+never confused with the moment norm $\rho$ of Sec.~\ref{sec:ceilings}.
+
+\begin{theorem}[flat density of states: an inflated ceiling]\label{thm:flatceiling}
+Take a flat density of states on $[-W,W]$, the local first crossed skeleton and even-frequency
+singlet pairing. For any centered particle-hole-symmetric normal solution with positive
+reflected widths,
+\begin{equation}\label{eq:V1}
+\kb\Tlin\le\Cinf\sqrt{AM}\Bigl[1+30\bigl((1+\lambda)\chi+\chi^{2}\bigr)\Bigr].
+\end{equation}
+The bound requires neither a regular branch nor an existence guard. If
+$(1+\lambda)\chi\le1/100$, a centered positive-width solution exists pointwise for every
+$\tau\in[\Cinf\sqrt M,2\Cinf\sqrt M]$, and at fixed finite $\lambda$ the uninflated ceiling
+holds whenever $\epsilon=30[(1+\lambda)\chi+\chi^{2}]<\delta_\lambda$, with
+$\delta_\lambda=1-\lambda h((2\pi\Cinf\sqrt\lambda)^{-1})>0$ and $h$ the scalar Einstein
+spectral top per unit coupling.
+Status: \PROVED{}, Ref.~\cite{msvertex}.
+\end{theorem}
+
+The last clause is a statement about the direct linear threshold of the same branch, not a
+proof that the vertex-free inequality $\kb\Tlin\le\Cinf\sqrt\rho$ survives the vertex. What
+the record proves is the inflated inequality \eqref{eq:V1} for every centered
+particle-hole-symmetric normal solution with positive reflected widths, together with the
+$\epsilon<\delta_\lambda$ regime in which the inflation is absorbed into the exact special
+flow. The inflation is first order in the crossing parameter $\chi$ and linear in
+$\lambda$, so the
+vertex-free ceiling of Sec.~\ref{sec:ceilings} holds by continuity in the window
+$\chi\ll1$; it is not uniform in $\lambda$, and no uniformity in $\lambda$ is claimed.
+
+\begin{theorem}[nested sheets and curved surfaces]\label{thm:dichotomy}
+Fix $\lambda>0$ and $\eta>0$, and set $\tau=\eta\Tceil$, $\nu=\pi\tau$,
+$m=\Omega_{\max}/W$ and $y=\xi/\nu$ on each sheet, so that
+$\tau/\Omega_{\max}=\eta\Cinf\sqrt\lambda$ and $\Omega_{\max}/(2\nu)=\theta$ depend on $m$
+only through $\lambda$. On two perfectly nested one-dimensional sheets, that is
+$k=\pm(k_F+\frac{\pi\nu}{2W}y)$, with $4k_F\notin2\pi\mathbb{Z}$, the crossed self-energy has
+a finite limit as $m\to0$ at every fixed $y\ne0$ and every fixed $\eta$: of the eight sign
+channels three keep the middle line in the collar, their prefactors are free of $m$, the
+real rainbow shift is a translation, and the remaining two integrals are exact Cauchy
+residues whose value at fixed $y$ is independent of $m$. No estimate of the form $O(m)$ for
+the crossed self-energy can hold at fixed $\eta$. On Fermi surfaces in $D\ge2$ dimensions
+whose level sets in the collar are strictly convex with principal curvatures bounded below,
+the crossed pairing correction obeys, for a sign-preserving normal branch with
+$u_n(\mathbf k)\ge c_0|\omega_n|$, $c_0\in(0,1]$, and bounded
+$|\operatorname{Re}\Sigma_n(\mathbf k)|\le\Delta_R$,
+\begin{equation}\label{eq:coarea}
+|F_X[y]|\le10L_XQ_0[y],\qquad
+L_X\le\frac{\gamma^{3}c_0^{\alpha-1}\CLC}{\pi^{2}}B^{2}x^{\alpha}
+\Bigl(1+\log_+\frac{1}{c_0x}\Bigr)^{3+\beta},
+\end{equation}
+uniformly in the shape of the level sets, with $\gamma=1+\Delta_R/(c_0\nu)$,
+$\alpha=1$, $\beta=1$ in $D=2$ and $\alpha=1$, $\beta=0$ in $D\ge3$. Here $\CLC$ is the
+level-crossing constant of the record, assembled from the geometric data of the collar, and
+it enters only through the prefactor. In the small-shift regime $\Delta_R\le c_1\nu$ one has
+$\gamma=O(1)$; in the wider regime $\Delta_R\le C_{\mathrm{Re}}\nu(1+\log_+(1/x))$ the factor
+$\gamma^{3}$ adds at most three powers of $1+\log_+(1/(c_0x))$. The first crossed skeleton
+therefore shifts the linear onset of that branch by a relative factor at most
+\begin{equation}\label{eq:shift}
+1+O\bigl((A v_{\max}R)^{2}x^{\alpha}(1+\log_+(1/x))^{3+\beta}\bigr),\qquad x\to0,
+\end{equation}
+in the small-shift regime $\Delta_R\le c_1\nu$, and at most
+\begin{equation}\label{eq:shiftwide}
+1+O\bigl((A v_{\max}R)^{2}x^{\alpha}(1+\log_+(1/x))^{6+\beta}\bigr),\qquad x\to0,
+\end{equation}
+in the wider regime $\Delta_R\le C_{\mathrm{Re}}\nu(1+\log_+(1/x))$, at each fixed $\eta$ and
+each fixed equation-of-state family. That is linear in the adiabatic ratio up to a
+logarithm cubed in \eqref{eq:shift} and up to a logarithm to the sixth power in
+\eqref{eq:shiftwide}, with the corresponding powers one higher in $D=2$, where $\beta=1$:
+a logarithm to the fourth and to the seventh. Since $x=\pi\eta\Cinf\sqrt\lambda\,m$ and
+$\chi=m\sqrt\lambda$ fix each other at fixed $\eta$ and $\lambda$, both shifts are the same
+statement in $\chi$.
+Status for this part: the vanishing is unconditional in the shape of the level sets within
+the stated curvature class. Separately, in an inversion-invariant projected continuum domain with constant
+spatial transfer and even marginal density of states, a Young-ball contraction gives an
+all-$x$ regime without any curvature hypothesis: for $A\lambda<1/9$,
+\begin{equation}\label{eq:young}
+\kb\Tlin\le\tau_Y=\frac{9AM_1}{2(1-9A\lambda)},\qquad M_1=\int\Omega\,d\lambda(\Omega),
+\end{equation}
+and for $A\lambda\le1/26^{2}$ one has $\tau_Y\le(117/667)\sqrt{AM}<\Cinf\sqrt{AM}$ with no
+adiabatic assumption.
+Status: \PROVED{} with the scope stated in each part, Ref.~\cite{msvertex}. Both extra
+hypotheses of the all-$x$ part are needed: without a particle-hole-even density of states
+and a constant transfer, the bare rainbow shift
+$\mathrm{Re}\,\Sigma^{(0)}_{\mathrm{RB}}=\Theta(\nu A v_{\max}R\log(1/x))$ leaves every ball
+of fixed radius as $x\to0$, however small $AR$ is.
+\end{theorem}
+
+The dichotomy is the physical content. Nested sheets, such as the $\gamma$-pocket sheets of
+a layered material near a van Hove filling, make the crossed term survive the adiabatic
+limit, so no universal vertex-free ceiling can exist for them; curved surfaces make it
+vanish linearly in the adiabatic ratio up to a logarithm cubed, a logarithm to the fourth
+power in two dimensions, so the ceiling
+of Sec.~\ref{sec:ceilings} is stable there in the stated window. The all-coupling,
+all-momentum, fully crossed statement is \OPEN{}, and it is the largest open problem of the
+programme: the universal onset statement of the first version of Ref.~\cite{msvertex} is not
+settled by Theorem~\ref{thm:dichotomy}. What is \PROVED{} beyond the ME ceiling is that a
+termwise absolute triangle estimate cannot work (\cite{msvertex}, the two failing estimates:
+at fixed positive $\lambda$ and $\tau=\Omega$ the dynamic triangle at zero spatial transfer
+tends to $\lambda$ for bare and to $\lambda/(1+\lambda)$ for dressed flat-band lines, so an
+$O(\lambda m)$ essential-supremum estimate is unavailable).
+
+\section{Comparison with the literature}\label{sec:lit}
+
+\subsection{Allen and Dynes}
+
+The Allen--Dynes analysis \cite{allendynes} is a fit to analytic and numerical solutions of
+the Eliashberg equations, and its abstract quotes a large-coupling coefficient $0.15$ in
+units of $\sqrt{\lambda\langle\omega^{2}\rangle}$ at $\muS=0.1$. The exact scalar
+coefficient at $\muS=0$ is $\Cinf=0.1827262478$, which is $21.8\%$ above that coefficient.
+The comparison is therefore between a bound at zero repulsion and a fit at
+$\muS=0.1$. Since
+$\muS>0$ can only reduce the onset in the model class where the ceiling is Coulomb robust
+(Proposition~\ref{prop:robust}), the comparison is not an inconsistency: it says that the
+Allen--Dynes strong-coupling coefficient is strictly conservative with respect to a sharp
+ceiling at zero repulsion, and that the empirical rule and the bound agree in magnitude and
+sign. We do not convert this into material-specific predictions, because the fit
+coefficients of the Allen--Dynes formula could not be verified from a primary source for
+this manuscript.
+
+\subsection{Moussa and Cohen}
+
+Moussa and Cohen \cite{moussa} state two bounds. Their Eq.~(10) writes
+$\kb T_c\le f(\lambda,\muS)\sqrt{\langle\omega^{2}\rangle}$ with $f$ given by an empirical
+fit whose maximum deviation is $0.03$, so $f$ is a fit and not a bound. Their Eq.~(7) gives
+the fixed-moment limit $0\le\kb T_c\le0.183\sqrt M$. The constant proved and certified here
+is $0.1827262478$, which is $0.15\%$ below $0.183$: the present result replaces their
+decimal by a certified transcendental value and extends the statement from one channel
+with one spectrum to a coupled class with channel-dependent bounded densities of states.
+Our reading of their Eqs.~(7), (10) and (11) relies on a secondary summary, which records
+them; their full text was not re-read for this manuscript, and we attach the label
+\KNOWN{} rather than \PROVED{} to the comparison.
+
+\subsection{The Kiessling--Altshuler--Yuzbashyan programme}
+
+The programme formulated in \cite{kay} asks for bounds on $T_c$ in Eliashberg theory in terms
+of spectral moments. The scalar constant $\Cinf$ is the value that closes Conjecture~2 of
+that programme, and an unrefereed repository manuscript \cite{kondratev} states a proof of
+it, with an exact-arithmetic eigenvalue enclosure $1.318139<g(2)<1.31815$ that contains our
+certified value. The contribution of the coupled records cited here is therefore
+twofold: an independent certified enclosure of that number, and the extension to the
+multichannel problem, where the constant is not sharp: the certified supremum bound is
+$\Cthree$ with $\Cthree/\Cinf-1=1.658\%$, and the sharpest strict constant of the same record
+is $\Cstar$, $1.725\%$ above $\Cinf$ and above $\Cthree$.
+
+\subsection{Vertex and nonadiabatic literature}
+
+Vertex corrections to Eliashberg theory have been studied as a practical correction for a
+long time, both locally conserving \cite{miller} and by local vertex computations at
+half filling \cite{paci}. The results above are of a different character: they are bounds on
+how much the first crossed skeleton can move the linear onset, in a geometry-dependent
+dichotomy, and they do not address the self-consistent crossed operator.
+
+\section{Limits: what is not claimed}\label{sec:limits}
+
+The bounds are narrow statements and the following list is part of their content.
+
+\begin{enumerate}
+\item[\rm 1.] \emph{Linear, not nonlinear.} The bound is on the linear onset of the folded
+stability form of linearized Eliashberg theory, tested against a fixed positive normal
+branch. It says nothing about the nonlinear gap equation at low temperature, and $\Tlin$ is
+not the transition temperature of any exact Hamiltonian. No statement here identifies
+$\Tlin$ with a measured $T_c$.
+\item[\rm 2.] \emph{A model class, not a material.} The glue is retarded and the same
+nonnegative transfer enters the normal and the pairing equations. Magnetic order, competing
+orders, anisotropic order parameters beyond the channel structure of
+Sec.~\ref{sec:model}, and off-diagonal $\eta$-pairing are outside. $\Cinf$ and the coupled
+constants are properties of this class and are not bounds for any particular compound.
+\item[\rm 3.] \emph{Vertices only in the regimes stated.} The fully crossed self-consistent
+vertex operator is not covered. Theorem~\ref{thm:flatceiling} inflates the ceiling by a
+term first order in the crossing parameter $\chi$ and linear in $\lambda$, and shows that
+the uninflated inequality there concerns the direct linear threshold of the same branch,
+Theorem~\ref{thm:dichotomy} shows that the crossed correction cannot vanish with the phonon
+mass ratio on nested one-dimensional sheets and vanishes linearly in the adiabatic ratio up
+to a logarithm cubed, a logarithm to the fourth power in two dimensions, on the curved
+surfaces of the stated curvature class, and the Young-ball regime gives an
+all-$x$ statement only for
+$A\lambda<1/9$. Outside these regimes the ceiling of Sec.~\ref{sec:ceilings} is a
+mean-field-with-rainbow-vertex statement.
+\item[\rm 4.] \emph{The constant is not sharp in the coupled class.} The chain shows
+$\Cinf\le\sup\kb\Tlin/\sqrt\rho\le\Cthree$ with $\Cthree/\Cinf-1=1.658\%$, and
+Proposition~\ref{prop:floor} shows that no frozen-sequence edge argument can close more than
+the upper $11.3\%$ of that interval. Which end is correct is \OPEN{}. The optimal coupled
+coefficient and the full shifted-versus-centered comparison are also \OPEN{}.
+\item[\rm 5.] \emph{The scalar sharpness is not claimed as new.} Theorem~\ref{thm:scalar}
+is imported; the prior proof is an unrefereed repository manuscript, and we state that
+plainly in Remark~\ref{rem:prior}.
+\item[\rm 6.] \emph{Nothing is measured.} The four material rows of
+Table~\ref{tab:mat} are ratios whose denominators are computed and whose numerators are
+literature values. The second moments are digitized, with $5$ to $10$ percent uncertainty,
+the pressure of a density-functional spectrum need not equal the pressure of a measurement,
+and $\mathrm{MgB_{2}}$ is compared against an isotropic reference while it is strongly
+anisotropic. No material is claimed to be a superconductor by these bounds, and no claim of
+patentability, priority or novelty beyond the records cited is made.
+\item[\rm 7.] \emph{Formalization is partial.} The finite rational core of the reserve
+inequalities was checked in Lean~4.35.0 in the released records. The analytic part (Harnack
+rearrangement, Poisson comparison, the width cone, the reduction of
+Sec.~\ref{sec:reserve}) is human-reviewed mathematics and is not formalized.
+\item[\rm 8.] \emph{The lattice layer is out of scope.} Pair order in the slow-phonon
+Holstein model, its suppression for slow lattice phonons \cite{slowphonon}, and the
+curvature of defect-insertion bounds \cite{limits} are a separate programme, mapped in
+Ref.~\cite{capstone}. Nothing in the present paper is a bound on a lattice pair temperature.
+\end{enumerate}
+
+\section{Reproducibility, data availability and disclosure}\label{sec:repro}
+
+Every finite statement of Sec.~\ref{sec:finite} is reproduced by exact-arithmetic programs
+that are archived with the corresponding release, together with the guarded mutant runs and,
+where present, the Lean sources: the replay supplements of Refs.~\cite{univglue,optimum,
+finiteenergy,anisosharp,msvertex}. The scalar enclosure of Theorem~\ref{thm:scalar} is
+reproduced by the replay of Ref.~\cite{gamma}, which exits successfully including the invalid
+upper-bound injection and the seventeen-place rounding check. The coupling-resolved ceiling
+$C(\lambda)$ of Table~\ref{tab:clambda} is computed for this paper: its exact rational
+endpoints were produced by two independently written programs working in exact arithmetic,
+and both programs, their mutation tests and the outward-rounded endpoints ship as
+supplementary material with this submission. No data set is new here. The couplings and
+second moments of Table~\ref{tab:mat} are evaluated in this paper from digitized Eliashberg
+functions of the literature, and the transition temperatures are literature values; the
+digitization records, with the figure and table each value was read from, and the script that
+converts them into Table~\ref{tab:mat} also ship as supplementary material. The digitized
+Eliashberg functions themselves are figures in the cited papers and are not redistributed.
+The source of this manuscript, its build record and these files are deposited together:
+the preprint is DOI \DOI{\PAPERDOI}, and the supplementary archive, with the repository
+that carries it, is DOI \DOI{\SUPPLEMENTDOI}, the source and replay scripts being at
+\url{https://github.com/SuperMatics-Inc/migdal-eliashberg-pairing-onset-ceilings}.
+
+\emph{Use of AI assistance.} The author used an AI assistant for code generation, for exact
+rational and interval arithmetic checks, for LaTeX production and for editorial work on the
+text. All mathematical statements, hypotheses and constants were reviewed by the author, and
+every numerical constant in this paper is traceable either to a released record whose
+certification is described in Sec.~\ref{sec:finite} or to the supplementary verification
+package of Sec.~\ref{sec:repro}. No claim in the paper rests on an unchecked model output.
+
+\begin{acknowledgments}
+The author thanks the maintainers of the exact-arithmetic and proof-assistant toolchains
+used by the cited records. No external funding was received for this work.
+\end{acknowledgments}
+
+\bibliography{refs}
+
+\end{document}

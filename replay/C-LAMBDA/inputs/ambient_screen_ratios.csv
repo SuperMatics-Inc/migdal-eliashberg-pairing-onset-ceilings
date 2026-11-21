@@ -1,0 +1,25 @@
+material,pressure,spectrum_origin,spectrum_approximation,tc_origin,tc_method,lambda,omega2_K,tc_K,M_eV2,T_ceil_K,R,R_gt_0_6,predicted_tc_gt_ceiling,source,locator
+Tl2AgH2,ambient,DFPT / calculated,harmonic,predicted,McMillan,1.128,475,11.7,0.00188991423757,92.18263024,0.126921958828,false,false,10.1038/s41467-025-63702-w,SI p2 #1
+Tl2AgH2,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,1.128,475,12.7,0.00188991423757,92.18263024,0.137769989497,false,false,10.1038/s41467-025-63702-w,SI p2 #1
+Tl2AgH2,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,1.128,475,13.2,0.00188991423757,92.18263024,0.143194004832,false,false,10.1038/s41467-025-63702-w,SI p2 #1
+NaNiH3,ambient,DFPT / calculated,harmonic,predicted,McMillan,0.158,1420,0.0,0.00236580831357,103.137790666,0,false,false,10.1038/s41467-025-63702-w,SI p3 #2
+NaNiH3,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,0.158,1420,0.0,0.00236580831357,103.137790666,0,false,false,10.1038/s41467-025-63702-w,SI p3 #2
+NaNiH3,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,0.158,1420,0.0,0.00236580831357,103.137790666,0,false,false,10.1038/s41467-025-63702-w,SI p3 #2
+BC11,ambient,DFPT / calculated,harmonic,predicted,McMillan,0.551,1269,20.7,0.00658901689171,172.122782322,0.120262987391,false,false,10.1038/s41467-025-63702-w,SI p4 #3
+BC11,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,0.551,1269,21.2,0.00658901689171,172.122782322,0.123167890468,false,false,10.1038/s41467-025-63702-w,SI p4 #3
+BC11,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,0.551,1269,24.0,0.00658901689171,172.122782322,0.139435347699,false,false,10.1038/s41467-025-63702-w,SI p4 #3
+B2C8Cl,ambient,DFPT / calculated,harmonic,predicted,McMillan,3.278,492,55.0,0.00589230111633,162.768557099,0.337903099838,false,false,10.1038/s41467-025-63702-w,SI p5 #4
+B2C8Cl,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,3.278,492,82.7,0.00589230111633,162.768557099,0.508083388302,false,false,10.1038/s41467-025-63702-w,SI p5 #4
+B2C8Cl,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,3.278,492,96.1,0.00589230111633,162.768557099,0.590408870808,false,false,10.1038/s41467-025-63702-w,SI p5 #4
+Al2H7Os,ambient,DFPT / calculated,harmonic,predicted,McMillan,3.175,596,37.6,0.00837494622191,194.05241894,0.193762078336,false,false,10.1038/s41467-025-63702-w,SI p6 #5
+Al2H7Os,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,3.175,596,57.3,0.00837494622191,194.05241894,0.295281039592,false,false,10.1038/s41467-025-63702-w,SI p6 #5
+Al2H7Os,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,3.175,596,100.0,0.00837494622191,194.05241894,0.515324676426,false,false,10.1038/s41467-025-63702-w,SI p6 #5
+Li2AgH6,ambient,DFPT / calculated,harmonic,predicted,McMillan,3.783,655,66.5,0.0120521552983,232.787902316,0.285667765972,false,false,10.1038/s41467-025-63702-w,SI p7 #6
+Li2AgH6,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,3.783,655,110.6,0.0120521552983,232.787902316,0.475110600248,false,false,10.1038/s41467-025-63702-w,SI p7 #6
+Li2AgH6,ambient,DFPT / calculated,harmonic,predicted,Eliashberg,3.783,655,132.3,0.0120521552983,232.787902316,0.568328502829,false,false,10.1038/s41467-025-63702-w,SI p7 #6
+Li2AuH6,ambient,DFPT / calculated,harmonic,predicted,McMillan,3.86,724,63,0.0150248524218,259.916083767,0.242385923514,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8
+Li2AuH6,ambient,DFPT / calculated,harmonic,predicted,Allen-Dynes,3.86,724,108,0.0150248524218,259.916083767,0.415518726025,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8
+Li2AuH6,ambient,DFPT / calculated,SSCHA auxiliary,predicted,McMillan,2.1,982,85,0.0150379296288,260.029170972,0.326886401561,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8
+Li2AuH6,ambient,DFPT / calculated,SSCHA auxiliary,predicted,Allen-Dynes,2.1,982,107,0.0150379296288,260.029170972,0.411492293729,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8
+Li2AuH6,ambient,DFPT / calculated,SSCHA Hessian,predicted,McMillan,2.67,870,86,0.0150070574281,259.762119679,0.331072136716,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8
+Li2AuH6,ambient,DFPT / calculated,SSCHA Hessian,predicted,Allen-Dynes,2.67,870,118,0.0150070574281,259.762119679,0.454261768982,false,false,10.1038/s41467-025-63702-w,SI Table S1 p8

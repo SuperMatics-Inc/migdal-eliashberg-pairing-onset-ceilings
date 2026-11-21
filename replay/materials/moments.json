@@ -1,0 +1,99 @@
+{
+  "_about": "Moments and literature transition temperatures for the four cases of Table IV. Every lambda is a literature value; every M is our own digitized estimate of lambda * <omega^2>, derived from the Eliashberg functions of the cited papers as described in LitConventional.md and LitHydrides.md. No numerical alpha^2F array is deposited with this archive; the records state the integrations and the arithmetic that produced each M.",
+  "k_B_eV_per_K": 8.617333262e-05,
+  "C_inf": 0.18272624777232951,
+  "cases": [
+    {
+      "label": "Pb",
+      "latex_label": "Pb",
+      "lambda": 1.68,
+      "M_eV2": 6.249e-05,
+      "M_printed": "0.00006249",
+      "tc_K": [
+        7.19,
+        7.19
+      ],
+      "tc_printed": "$7.19$",
+      "ratio_printed": "$0.548$ / $0.429$",
+      "pressures": "not specified (equilibrium)",
+      "sources": [
+        "Savrasov & Savrasov, Phys. Rev. B 54, 16487 (1996), doi:10.1103/PhysRevB.54.16487: lambda, the Eliashberg-solution Tc 7.19 K and the McMillan 6.81 K",
+        "digitization note LitConventional.md: M = lambda_trace * (omega_bar_2/eV)^2 = 1.59102 * (0.00626702)^2"
+      ],
+      "caveat": "measured Tc is taken from the tabulated Eliashberg/McMillan entries of the cited paper, whose primary Tc source is not specified there; M carries an indicative 10 percent digitization uncertainty",
+      "t_lam_printed": "13.13",
+      "t_inf_printed": "16.76",
+      "ratio_plain": "0.548 / 0.429"
+    },
+    {
+      "label": "Nb",
+      "latex_label": "Nb",
+      "lambda": 1.26,
+      "M_eV2": 0.0003466,
+      "M_printed": "0.00034660",
+      "tc_K": [
+        9.25,
+        9.25
+      ],
+      "tc_printed": "$9.25$",
+      "ratio_printed": "$0.332$ / $0.234$",
+      "pressures": "not specified (equilibrium)",
+      "sources": [
+        "Savrasov & Savrasov, Phys. Rev. B 54, 16487 (1996), doi:10.1103/PhysRevB.54.16487: lambda and the Eliashberg-solution Tc 9.25 K",
+        "digitization note LitConventional.md: M = 1.18421 * (0.0171073)^2"
+      ],
+      "caveat": "as for Pb, with the same 10 percent indicative uncertainty in M",
+      "t_lam_printed": "27.90",
+      "t_inf_printed": "39.48",
+      "ratio_plain": "0.332 / 0.234"
+    },
+    {
+      "label": "MgB2",
+      "latex_label": "\\mathrm{MgB_{2}}",
+      "lambda": 0.61,
+      "M_eV2": 0.0028654,
+      "M_printed": "0.0028654",
+      "tc_K": [
+        39.0,
+        39.0
+      ],
+      "tc_printed": "$39$",
+      "ratio_printed": "$0.851$ / $0.344$",
+      "pressures": "not specified (ambient)",
+      "sources": [
+        "Choi et al., Phys. Rev. B 66, 020513 (2002), doi:10.1103/PhysRevB.66.020513: lambda 0.61 and omega_log 63.5 meV for the anharmonic spectrum",
+        "Nagamatsu et al., Nature 410, 63 (2001), doi:10.1038/35065039: measured Tc 39 K",
+        "digitization note LitConventional.md: M = 0.611345 * (0.0684625)^2"
+      ],
+      "caveat": "the digitized reference spectrum is isotropic while the material is strongly anisotropic (the same coupling gives 19 K isotropic and 39 K anisotropic in the cited isotropic Migdal-Eliashberg calculation), so the ratio is against an isotropic reference only; M carries an indicative 5 percent uncertainty",
+      "t_lam_printed": "45.84",
+      "t_inf_printed": "113.51",
+      "ratio_plain": "0.851 / 0.344",
+      "note_recomputed": "the C-LAMBDA release record prints 113.504 K for this entry; exact recomputation with the same inputs and constants gives 113.5065 K, an arithmetic slip of 0.002 K, far inside the stated 5 percent uncertainty in M. The manuscript prints the recomputed 113.51 K."
+    },
+    {
+      "label": "LaH10, 129 GPa",
+      "latex_label": "\\mathrm{LaH_{10}}$, $129$ GPa",
+      "lambda": 3.62,
+      "M_eV2": 0.036826,
+      "M_printed": "0.036826",
+      "tc_K": [
+        244.0,
+        245.0
+      ],
+      "tc_printed": "$244$--$245$",
+      "ratio_printed": "$0.664$--$0.667$ / $0.600$--$0.602$",
+      "pressures": "the density-functional spectrum is at 129 GPa; the measured points are at 145 and 135 GPa",
+      "sources": [
+        "Errea et al., Nature 578, 66 (2020), doi:10.1038/s41586-020-1955-z: calculated lambda 3.62 and omega_log 76.4 meV at 129 GPa (Extended Data Table I)",
+        "Drozdov et al., Nature 569, 528 (2019), doi:10.1038/s41586-019-1201-8: measured ~245 K at 135 GPa and ~244 K at 145 GPa (Fig. 1 caption and text)",
+        "digitization note LitHydrides.md: M = 3.62 * (0.10086)^2 from a vector digitization of the plotted alpha^2F (Extended Data Fig. 4)"
+      ],
+      "caveat": "the density-functional pressure and the measured pressures do not coincide, so the ratio mixes two pressures; M carries an indicative 5 percent uncertainty; the measured points are literature values and their Tc criterion is not stated as onset or midpoint in the cited figure",
+      "t_lam_printed": "367.18",
+      "t_inf_printed": "406.92",
+      "ratio_plain": "0.665--0.667 / 0.600--0.602",
+      "note_recomputed": "244 K over 367.1821 K is 0.66452, which rounds to 0.665; an earlier draft truncated it to 0.664."
+    }
+  ]
+}
