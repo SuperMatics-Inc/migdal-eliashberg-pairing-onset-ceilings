@@ -58,11 +58,18 @@ jobs:
           if grep -nE '—|D:/|C:/|/scratch/|ceiling-20261118|JOURNAL-CEILING|\blane\b' replay/C-LAMBDA/clambda_table.csv replay/materials/moments.json; then exit 1; fi
           test "$(grep -cF '10.5281/zenodo.24411775' paper/main.tex)" -eq 1
           test "$(grep -cF '10.5281/zenodo.24411779' paper/main.tex)" -eq 1
-          grep -qF 'This preprint has not been peer reviewed.' README.md
-          grep -qF 'AI agents generated proofs, certificates, code, and manuscript drafts and edits under D. Rens' README.md
-          grep -qF 'Separate AI agents performed the independent reviews of the cited records.' README.md
-          grep -qF 'whether a model at finite moment attains it is open' README.md
-          grep -qF 'no material is claimed to be a superconductor' README.md
+          flat="$(tr -s '[:space:]' ' ' < README.md)"
+          for phrase in \
+            'This preprint has not been peer reviewed.' \
+            'AI agents generated proofs, certificates, code, and manuscript drafts and edits under D. Rens' \
+            'Separate AI agents performed the independent reviews of the cited records.' \
+            'whether a model at finite moment attains it is open' \
+            'no material is claimed to be a superconductor'; do
+            case "$flat" in
+              *"$phrase"*) ;;
+              *) echo "missing from README.md: $phrase"; exit 1 ;;
+            esac
+          done
   paper:
     runs-on: ubuntu-latest
     timeout-minutes: 20
