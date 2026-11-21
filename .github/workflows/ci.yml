@@ -31,11 +31,11 @@ jobs:
       - name: Every supplement check from a throwaway copy
         run: |
           set -euo pipefail
-          (cd replay && python -B run_all.py | tee run_all.out)
-          grep -qF '4 mutants rejected' run_all.out
-          grep -qF '4 rows reproduce the manuscript table exactly' run_all.out
-          grep -qF 'all 38 decimal endpoints of clambda_table.csv appear in the replay output' run_all.out
-          grep -qF 'ALL 5 CHECKS PASSED' run_all.out
+          (cd replay && python -B run_all.py) | tee "$RUNNER_TEMP/run_all.out"
+          grep -qF '4 mutants rejected' "$RUNNER_TEMP/run_all.out"
+          grep -qF '4 rows reproduce the manuscript table exactly' "$RUNNER_TEMP/run_all.out"
+          grep -qF 'all 38 decimal endpoints of clambda_table.csv appear in the replay output' "$RUNNER_TEMP/run_all.out"
+          grep -qF 'ALL 5 CHECKS PASSED' "$RUNNER_TEMP/run_all.out"
       - name: Tail negative controls must reject
         run: |
           set -euo pipefail
