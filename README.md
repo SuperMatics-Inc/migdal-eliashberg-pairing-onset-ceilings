@@ -1,4 +1,5 @@
 # Certified ceilings for the Migdal-Eliashberg linear pairing onset
+Research record: [Certified ceilings for the Migdal-Eliashberg linear pairing onset: one inequality chain from the glue moment to observable ratios](https://supermatics.io/research/migdal-eliashberg-pairing-onset-ceilings).
 
 Davis Rens, SuperMatics Inc. ([ORCID 0000-0001-5839-5197](https://orcid.org/0000-0001-5839-5197)).
 Version 1.0.0.
